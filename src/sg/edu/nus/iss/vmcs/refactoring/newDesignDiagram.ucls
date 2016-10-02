@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.1.9" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
-  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+<class-diagram version="1.1.9" icons="false" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true" 
+  router="FAN">  
   <class id="1" language="java" name="sg.edu.nus.iss.vmcs.refactoring.MoneyButton" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/MoneyButton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="413" y="403"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="418" y="354"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -12,8 +13,8 @@
   </class>  
   <interface id="2" language="java" name="sg.edu.nus.iss.vmcs.refactoring.MoneyAttribute" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/MoneyAttribute.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="528" y="200"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="529" y="143"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -21,8 +22,8 @@
   </interface>  
   <class id="3" language="java" name="sg.edu.nus.iss.vmcs.refactoring.Coin" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/Coin.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="723" y="567"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="689" y="403"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -30,8 +31,8 @@
   </class>  
   <class id="4" language="java" name="sg.edu.nus.iss.vmcs.refactoring.CoinStore" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/CoinStore.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1066" y="904"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="1107" y="750"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -39,8 +40,8 @@
   </class>  
   <class id="5" language="java" name="sg.edu.nus.iss.vmcs.refactoring.MoneyStore" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/MoneyStore.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1070" y="767"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="1053" y="645"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -48,8 +49,8 @@
   </class>  
   <class id="6" language="java" name="sg.edu.nus.iss.vmcs.refactoring.CoinButton" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/CoinButton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="298" y="550"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="291" y="468"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -57,8 +58,8 @@
   </class>  
   <class id="7" language="java" name="sg.edu.nus.iss.vmcs.refactoring.Money" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/Money.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="819" y="405"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="800" y="271"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -66,8 +67,8 @@
   </class>  
   <class id="8" language="java" name="sg.edu.nus.iss.vmcs.refactoring.NoteButton" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/NoteButton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="512" y="553"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="513" y="471"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -75,8 +76,8 @@
   </class>  
   <class id="9" language="java" name="sg.edu.nus.iss.vmcs.refactoring.CoinAttribute" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/CoinAttribute.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="186" y="269"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="233" y="237"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -84,8 +85,8 @@
   </class>  
   <class id="10" language="java" name="sg.edu.nus.iss.vmcs.refactoring.NoteStore" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/NoteStore.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="871" y="905"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="1008" y="750"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -93,8 +94,8 @@
   </class>  
   <class id="11" language="java" name="sg.edu.nus.iss.vmcs.refactoring.Note" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/Note.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="934" y="560"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="876" y="395"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -102,8 +103,8 @@
   </class>  
   <class id="12" language="java" name="sg.edu.nus.iss.vmcs.refactoring.NoteAttribute" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/NoteAttribute.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="187" y="104"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="236" y="99"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -111,8 +112,8 @@
   </class>  
   <class id="13" language="java" name="sg.edu.nus.iss.vmcs.store.Store" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/store/Store.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1140" y="525"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="1083" y="420"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -120,8 +121,8 @@
   </class>  
   <class id="14" language="java" name="sg.edu.nus.iss.vmcs.store.StoreItem" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/store/StoreItem.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1139" y="199"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="1085" y="138"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -129,8 +130,8 @@
   </class>  
   <class id="15" language="java" name="sg.edu.nus.iss.vmcs.store.StoreObject" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/store/StoreObject.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="816" y="179"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="805" y="104"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -138,8 +139,8 @@
   </class>  
   <class id="16" language="java" name="sg.edu.nus.iss.vmcs.refactoring.MoneyRecevier" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/MoneyRecevier.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="695" y="771"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="701" y="603"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -147,8 +148,8 @@
   </class>  
   <class id="17" language="java" name="sg.edu.nus.iss.vmcs.refactoring.CoinReceiver" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/CoinReceiver.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="330" y="685"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="327" y="566"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -156,8 +157,8 @@
   </class>  
   <class id="18" language="java" name="sg.edu.nus.iss.vmcs.refactoring.NoteReceiver" project="VMCS_OOAD" 
     file="/VMCS_OOAD/src/sg/edu/nus/iss/vmcs/refactoring/NoteReceiver.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="328" y="876"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="326" y="701"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -251,10 +252,10 @@
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="15"/>  
   </generalization>  
-  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+  <classifier-display autosize="true" stereotype="false" package="false" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
-    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
-    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+    <attributes public="true" package="false" protected="true" private="true" static="true"/>    
+    <operations public="true" package="false" protected="true" private="true" static="true"/>  
   </classifier-display>  
   <association-display labels="true" multiplicity="true"/>
 </class-diagram>
