@@ -3,8 +3,8 @@ package sg.edu.nus.iss.vmcs.refactoring;
 
 public class Note extends Money {
 	
-	public Note(double value, NoteAttribute attributes){
-		super(value, attributes);
+	public Note(int value,String name, NoteAttribute attributes){
+		super(value, name, attributes);
 	}
 }
 

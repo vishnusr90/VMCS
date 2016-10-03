@@ -1,6 +1,6 @@
 package sg.edu.nus.iss.vmcs.refactoring;
 
-public class NoteReceiver extends MoneyRecevier{
+public class NoteReceiver extends MoneyReceiver{
 
 	public final static double minLength = 5;
 	public final static double maxLength = 50;

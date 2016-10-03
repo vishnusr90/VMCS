@@ -31,6 +31,8 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import sg.edu.nus.iss.vmcs.store.CashStore;
+import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
 import sg.edu.nus.iss.vmcs.util.LabelledValue;
 import sg.edu.nus.iss.vmcs.util.WarningDisplay;
@@ -119,7 +121,10 @@ public class CustomerPanel extends Dialog {
 			}
 		});
 		
-		coinInputBox=new CoinInputBox(txCtrl);
+		CashStore store = (CashStore) txCtrl.getMainController().getStoreController().getStore(Store.CASH);
+		CoinReceiver coinReceiver = txCtrl.getCoinReceiver();
+		coinInputBox=new CoinInputBox(store, coinReceiver);
+		
 		drinkSelectionBox=new DrinkSelectionBox(txCtrl);
 		TerminateButtonListener terminateButtonListener=new TerminateButtonListener(txCtrl);
 		

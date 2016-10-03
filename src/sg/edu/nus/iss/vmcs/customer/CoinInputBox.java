@@ -15,11 +15,8 @@ import java.awt.Panel;
 import sg.edu.nus.iss.vmcs.store.CashStore;
 import sg.edu.nus.iss.vmcs.store.CashStoreItem;
 import sg.edu.nus.iss.vmcs.store.Coin;
-import sg.edu.nus.iss.vmcs.store.Store;
-import sg.edu.nus.iss.vmcs.store.StoreController;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
 import sg.edu.nus.iss.vmcs.store.StoreObject;
-import sg.edu.nus.iss.vmcs.system.MainController;
 
 /**
  * This interface object is part of the Customer Panel&#46; It is used to enter
@@ -27,24 +24,20 @@ import sg.edu.nus.iss.vmcs.system.MainController;
  * @author Team SE16T5E
  * @version 1.0 2008-10-01
  */
+@SuppressWarnings("serial")
 public class CoinInputBox extends Panel{
 	private CoinButton[] btnCoinButton;
-	
-	private TransactionController txCtrl;
 	
 	/**
 	 * This constructor creates an instance of the object.
 	 * @param cctrl the TransactionController.
 	 */
-	public CoinInputBox(TransactionController cctrl){
-		this.txCtrl=cctrl;
-		MainController mainCtrl=cctrl.getMainController();
-		StoreController storeCtrl=mainCtrl.getStoreController();
-		int cashStoreSize=storeCtrl.getStoreSize(Store.CASH);
-		StoreItem[] cashStoreItems=storeCtrl.getStore(Store.CASH).getItems();
+	public CoinInputBox(CashStore store, CoinReceiver coinReceiver){
+		int cashStoreSize= store.getStoreSize();
+		StoreItem[] cashStoreItems= store.getItems();
 		
 		btnCoinButton=new CoinButton[cashStoreSize+1];
-		CoinInputListener coinInputListener=new CoinInputListener(txCtrl.getCoinReceiver());
+		CoinInputListener coinInputListener=new CoinInputListener(coinReceiver);
 		
 		setLayout(new GridBagLayout());
 		for(int i=0;i<cashStoreItems.length;i++){
