@@ -27,5 +27,10 @@ public abstract class Money extends StoreObject {
 	public MoneyAttribute getAttributes(){
 		return attributes;
 	}
+	
+	public boolean equals(Money otherMoney){
+		if(otherMoney == null) return false;
+		return this.getAttributes().equals(otherMoney.getAttributes());
+	}
 
 }

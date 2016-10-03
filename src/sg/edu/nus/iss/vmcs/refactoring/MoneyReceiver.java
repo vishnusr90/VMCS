@@ -37,18 +37,18 @@ public abstract class MoneyReceiver{
 	}
 	
 	
-	public void notifyMoneyReceiverStateChanged(MoneyReceiverState newState){
+	private void notifyMoneyReceiverStateChanged(MoneyReceiverState newState){
 		for(MoneyReceiverObserver o : observers){
 			o.MoneyReceiverStateChanged(this, newState);
 		}
 	}
-	public void notifyMoneyRecevied(Money money){
+	private void notifyMoneyRecevied(Money money){
 		for(MoneyReceiverObserver o : observers){
 			o.MoneyRecevied(this, money);
 		}
 	}
 	
-	public void notifyTotalMoneyReceviedChanged(){
+	private void notifyTotalMoneyReceviedChanged(){
 		for(MoneyReceiverObserver o : observers){
 			o.TotalMoneyReceviedChanged(this, getTotalInserted());
 		}
@@ -130,6 +130,7 @@ public abstract class MoneyReceiver{
 	public void stopReceive(){
 		notifyMoneyReceiverStateChanged(MoneyReceiverState.Stoped);
 	}
+	
 	
 	/**
 	 * This method handles the refunding of Coins entered so far to 

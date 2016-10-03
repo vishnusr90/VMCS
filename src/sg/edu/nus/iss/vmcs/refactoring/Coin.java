@@ -7,8 +7,4 @@ public class Coin extends Money {
 		super(value,name, attributes);
 	}
 
-	public double getWeight(){
-		return ((CoinAttribute)this.getAttributes()).getWeight();
-	}
-
 }

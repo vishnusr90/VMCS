@@ -4,8 +4,13 @@ import sg.edu.nus.iss.vmcs.refactoring.*;
 
 public interface MoneyReceiverObserver {
 	
-	void  MoneyReceiverStateChanged(MoneyReceiver source, MoneyReceiverState newState);
-	void  MoneyRecevied(MoneyReceiver source, Money money);
-	void  TotalMoneyReceviedChanged(MoneyReceiver source, int newtotal);
-	
+	default void  MoneyReceiverStateChanged(MoneyReceiver source, MoneyReceiverState newState){
+		
+	}
+	default void  MoneyRecevied(MoneyReceiver source, Money money){
+		
+	}
+	default void  TotalMoneyReceviedChanged(MoneyReceiver source, int newtotal){
+		
+	}
 }
