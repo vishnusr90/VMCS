@@ -38,12 +38,22 @@ public class StoreController {
 	 * @param cashLoader the cash loader.
 	 * @param drinksLoader the drinks loader.
 	 */
-	public StoreController(
+	private StoreController(
 		PropertyLoader cashLoader,
 		PropertyLoader drinksLoader) {
 		this.cashLoader = cashLoader;
 		this.drinksLoader = drinksLoader;
 	}
+	
+	private static StoreController storeController; 
+	public static StoreController getInstance( PropertyLoader cashLoader, PropertyLoader drinksLoader){ 
+		if(storeController == null){ 
+			storeController = new StoreController(cashLoader,drinksLoader); 
+		} 
+		
+		return storeController; 
+	}
+	
 
 	/**
 	 * This method instantiate the {@link CashStore}, {@link DrinksStore} and initialize it.

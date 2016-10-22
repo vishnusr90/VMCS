@@ -33,7 +33,7 @@ public class StoreControllerTest extends TestCase{
 		cashLoader.initialize();
 		drinksLoader.initialize();
 		//Act
-		StoreController storeController=new StoreController(cashLoader, drinksLoader);
+		StoreController storeController=StoreController.getInstance(cashLoader, drinksLoader);
 		storeController.initialize();
 		//Assert
 		assertNotNull(storeController);
