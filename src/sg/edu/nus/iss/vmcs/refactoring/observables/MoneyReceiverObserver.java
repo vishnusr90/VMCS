@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.vmcs.refactoring.observables;
 
+import sg.edu.nus.iss.vmcs.store.Money;
 import sg.edu.nus.iss.vmcs.refactoring.*;
 
 public interface MoneyReceiverObserver {

@@ -26,9 +26,11 @@ package sg.edu.nus.iss.vmcs.store;
  */
 public abstract class Store {
 	/**This constant attribute represent Cash*/
-	public final static int CASH  = 1;
+	public final static int COIN  = 1;
 	/**This constant attribute represnet Drink*/
 	public final static int DRINK = 2;
+        /**This constant attribute represnet Money Note*/
+        public final static int NOTE = 3;
 	/**This attribute hold the size of the store*/
 	protected int size;
     /**This attribute hold the items of the store*/

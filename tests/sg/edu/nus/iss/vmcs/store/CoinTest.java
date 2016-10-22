@@ -21,18 +21,18 @@ public class CoinTest extends TestCase{
 		int value=100;
 		double weight=55;
 		//Act
-		Coin coin=new Coin(value,weight);
+		Coin coin=new Coin(value,"", new CoinAttribute(weight));
 		//Assert
 		assertEquals(coin.getValue(),value);
-		assertEquals(coin.getWeight(),weight);
+		assertEquals(((CoinAttribute) coin.getAttributes()).getWeight(),weight);
 	}
 	
 	@Test
 	public void testSetGetValue() throws Exception{
-		Coin coin=new Coin();
+		
 		int value1=10;
-		//Act setValue
-		coin.setValue(value1);
+                Coin coin=new Coin(value1,"", new CoinAttribute(10));
+
 		//Act getValue
 		int value2=coin.getValue();
 		//Assert
@@ -41,12 +41,11 @@ public class CoinTest extends TestCase{
 	
 	@Test
 	public void testSetGetWeight() throws Exception{
-		Coin coin=new Coin();
+		    
 		double weight1=20;
-		//Act setWeight
-		coin.setWeight(weight1);
+                Coin coin=new Coin(10,"", new CoinAttribute(weight1));
 		//Act getWeight
-		double weight2=coin.getWeight();
+		double weight2 = ((CoinAttribute) coin.getAttributes()).getWeight();
 		//Assert
 		assertEquals(weight1,weight2);
 	}

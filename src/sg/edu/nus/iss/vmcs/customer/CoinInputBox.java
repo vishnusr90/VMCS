@@ -12,8 +12,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Panel;
 
-import sg.edu.nus.iss.vmcs.store.CashStore;
-import sg.edu.nus.iss.vmcs.store.CashStoreItem;
+import sg.edu.nus.iss.vmcs.store.MoneyStore;
+import sg.edu.nus.iss.vmcs.store.CoinStoreItem;
 import sg.edu.nus.iss.vmcs.store.Coin;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
 import sg.edu.nus.iss.vmcs.store.StoreObject;
@@ -32,7 +32,7 @@ public class CoinInputBox extends Panel{
 	 * This constructor creates an instance of the object.
 	 * @param cctrl the TransactionController.
 	 */
-	public CoinInputBox(CashStore store, CoinReceiver coinReceiver){
+	public CoinInputBox(MoneyStore store, CoinReceiver coinReceiver){
 		int cashStoreSize= store.getStoreSize();
 		StoreItem[] cashStoreItems= store.getItems();
 		
@@ -42,19 +42,18 @@ public class CoinInputBox extends Panel{
 		setLayout(new GridBagLayout());
 		for(int i=0;i<cashStoreItems.length;i++){
 			StoreItem storeItem=cashStoreItems[i];
-			CashStoreItem cashStoreItem=(CashStoreItem)storeItem;
+			CoinStoreItem cashStoreItem=(CoinStoreItem)storeItem;
 			StoreObject storeObject=cashStoreItem.getContent();
 			Coin coin=(Coin)storeObject;
 			String coinName=coin.getName();
 			int coinValue=coin.getValue();
-			double coinWeight=coin.getWeight();
-			btnCoinButton[i]=new CoinButton(coinName,coinValue,coinWeight);
+			btnCoinButton[i]=new CoinButton(coinName,coinValue,coin.getAttributes());
 			btnCoinButton[i].addActionListener(coinInputListener);
 			add(btnCoinButton[i],new GridBagConstraints(i,1,1,1,1.0,0.0,
 				    GridBagConstraints.EAST,GridBagConstraints.HORIZONTAL,
 				    new Insets(0,0,0,0),10,8));
 		}
-		btnCoinButton[cashStoreSize]=new CoinButton("Invalid",-1,CashStore.INVALID_COIN_WEIGHT);
+		btnCoinButton[cashStoreSize]=new CoinButton("Invalid",-1,MoneyStore.INVALID_COIN_WEIGHT);
 		btnCoinButton[cashStoreSize].addActionListener(coinInputListener);
 		add(btnCoinButton[cashStoreSize],new GridBagConstraints(cashStoreSize,1,1,1,1.0,0.0,
 			    GridBagConstraints.EAST,GridBagConstraints.HORIZONTAL,

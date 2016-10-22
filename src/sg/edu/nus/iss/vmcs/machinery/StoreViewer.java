@@ -42,7 +42,7 @@ public class StoreViewer extends Panel {
 		
 		String title = null;
 		switch (type) {
-		case Store.CASH:
+		case Store.COIN:
 			title = CASH_VIEW_TITLE;
 			break;
 		case Store.DRINK:

@@ -1,5 +1,8 @@
 package sg.edu.nus.iss.vmcs.refactoring;
 
+import sg.edu.nus.iss.vmcs.store.MoneyAttribute;
+import sg.edu.nus.iss.vmcs.store.MoneyStore;
+import sg.edu.nus.iss.vmcs.store.Money;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,7 +144,8 @@ public abstract class MoneyReceiver{
 			return;
 		
 		notifyMoneyReceiverStateChanged(MoneyReceiverState.Refunded);
-		resetReceived();
+		moneyInserted = new ArrayList<Money>();
+                resetReceived();
 	}
 	
 	/**
@@ -149,7 +153,7 @@ public abstract class MoneyReceiver{
 	 */
 	public void resetReceived(){
 		moneyInserted = new ArrayList<Money>();
-		notifyTotalMoneyReceviedChanged();
+		//notifyTotalMoneyReceviedChanged();
 		notifyMoneyReceiverStateChanged(MoneyReceiverState.Reseted);
 	}
 	

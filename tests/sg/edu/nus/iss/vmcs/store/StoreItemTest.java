@@ -9,7 +9,7 @@ import org.junit.Test;
 import sg.edu.nus.iss.vmcs.system.MainController;
 
 public class StoreItemTest extends TestCase{
-	private String propertyFilename=System.getProperty("propertyFilename");
+	private String propertyFilename="vmcs.properties";
 	
 	@Before
 	public void setup() throws Exception{
@@ -37,11 +37,11 @@ public class StoreItemTest extends TestCase{
 		mainCtrl.initialize();
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
-		Store store=(Store)storeController.getStore(Store.CASH);
+		Store store=(Store)storeController.getStore(Store.COIN);
 		int storeSize=store.getStoreSize();
 		for(int i=0;i<storeSize;i++){
 			StoreItem storeItem=(StoreItem)store.getStoreItem(i);
-			Coin coin1=new Coin();
+			Coin coin1=new Coin(10,"", new CoinAttribute(100));
 			//Act setContent
 			storeItem.setContent(coin1);
 			//Act getContent
@@ -71,11 +71,11 @@ public class StoreItemTest extends TestCase{
 		mainCtrl.initialize();
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
-		Store store=(Store)storeController.getStore(Store.CASH);
+		Store store=(Store)storeController.getStore(Store.COIN);
 		int storeSize=store.getStoreSize();
 		for(int i=0;i<storeSize;i++){
 			StoreItem storeItem=(StoreItem)store.getStoreItem(i);
-			Coin coin1=new Coin();
+			Coin coin1=new Coin(10,"", new CoinAttribute(100));
 			storeItem.setContent(coin1);
 			int qty1=12;
 			//Act setQuantity
@@ -107,7 +107,7 @@ public class StoreItemTest extends TestCase{
 		mainCtrl.initialize();
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
-		Store store=(Store)storeController.getStore(Store.CASH);
+		Store store=(Store)storeController.getStore(Store.COIN);
 		int storeSize=store.getStoreSize();
 		for(int i=0;i<storeSize;i++){
 			StoreItem storeItem=(StoreItem)store.getStoreItem(i);
@@ -139,7 +139,7 @@ public class StoreItemTest extends TestCase{
 		mainCtrl.initialize();
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
-		Store store=(Store)storeController.getStore(Store.CASH);
+		Store store=(Store)storeController.getStore(Store.COIN);
 		int storeSize=store.getStoreSize();
 		for(int i=0;i<storeSize;i++){
 			StoreItem storeItem=(StoreItem)store.getStoreItem(i);
@@ -177,7 +177,7 @@ public class StoreItemTest extends TestCase{
 		mainCtrl.initialize();
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
-		Store store=(Store)storeController.getStore(Store.CASH);
+		Store store=(Store)storeController.getStore(Store.COIN);
 		int storeSize=store.getStoreSize();
 		for(int i=0;i<storeSize;i++){
 			StoreItem storeItem=(StoreItem)store.getStoreItem(i);

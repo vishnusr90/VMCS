@@ -9,6 +9,9 @@ package sg.edu.nus.iss.vmcs.refactoring;
  *
  */
 
+import sg.edu.nus.iss.vmcs.customer.CoinReceiver;
+import sg.edu.nus.iss.vmcs.store.CoinStore;
+import sg.edu.nus.iss.vmcs.store.Money;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Component;
@@ -190,7 +193,7 @@ public class CustomerPanel extends Dialog implements MoneyReceiverObserver {
 			}
 		});
 		
-		CoinStore store = (CoinStore) txCtrl.getMainController().getStoreController().getStore(Store.CASH);
+		CoinStore store = (CoinStore) txCtrl.getMainController().getStoreController().getStore(Store.COIN);
 		CoinReceiver coinReceiver = new CoinReceiver(store);
 		coinReceiver.subscribe(this);
 		//coinInputBox=new CoinInputBox(store, coinReceiver);

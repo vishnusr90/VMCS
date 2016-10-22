@@ -1,5 +1,5 @@
 
-package sg.edu.nus.iss.vmcs.refactoring;
+package sg.edu.nus.iss.vmcs.store;
 
 import sg.edu.nus.iss.vmcs.store.StoreObject;
 

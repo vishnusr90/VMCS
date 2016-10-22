@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.vmcs.refactoring;
 
+import sg.edu.nus.iss.vmcs.store.MoneyAttribute;
 import java.awt.Button;
 
 public abstract class MoneyButton extends Button{

@@ -27,14 +27,14 @@ package sg.edu.nus.iss.vmcs.store;
  * @version 3.0 5/07/2003
  * @author Olivo Miotto, Pang Ping Li
  */
-public class CashStoreItem extends StoreItem {
+public class CoinStoreItem extends StoreItem {
 
 	/**
 	 * This constructor creates an instance of {@link CashStoreItem} object.
 	 * @param coin the coin associated with this CashStoreItem.
 	 * @param qty the quantity of the Coin.
 	 */
-	public CashStoreItem(Coin coin, int qty) {
+	public CoinStoreItem(Coin coin, int qty) {
 		super((StoreObject) coin, qty);
 	}
 }//End of class CashStoreItem

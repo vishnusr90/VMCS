@@ -8,6 +8,7 @@
 package sg.edu.nus.iss.vmcs.customer;
 
 import java.awt.Button;
+import sg.edu.nus.iss.vmcs.store.MoneyAttribute;
 
 /**
  * This boundary class CoinButton represent the coin to be displayed on the CustomerPanel.
@@ -17,7 +18,7 @@ import java.awt.Button;
 public class CoinButton extends Button{
 	private String name="";
 	private int value=0;
-	private double weight=0;
+	private MoneyAttribute attribute;
 	
 	/**
 	 * This constructor create an instance of the CoinButton object.
@@ -25,11 +26,11 @@ public class CoinButton extends Button{
 	 * @param value the value of the coin.
 	 * @param weight the weight of the coin.
 	 */
-	public CoinButton(String name, int value, double weight){
+	public CoinButton(String name, int value, MoneyAttribute attribute){
 		super(name);
 		this.setName(name);
 		this.setValue(value);
-		this.setWeight(weight);
+		this.setAttribute(attribute);
 	}
 
 	/**
@@ -64,19 +65,17 @@ public class CoinButton extends Button{
 		return value;
 	}
 
-	/**
-	 * This method sets the weight of the coin.
-	 * @param weight the weight of the coin.
-	 */
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
+        /**
+         * @return the attribute
+         */
+        public MoneyAttribute getAttribute() {
+            return attribute;
+        }
 
-	/**
-	 * This method returns the weight of the coin.
-	 * @return the weight of the coin.
-	 */
-	public double getWeight() {
-		return weight;
-	}
+        /**
+         * @param attribute the attribute to set
+         */
+        public void setAttribute(MoneyAttribute attribute) {
+            this.attribute = attribute;
+        }
 }//End of class CoinButton

@@ -1,4 +1,4 @@
-package sg.edu.nus.iss.vmcs.refactoring;
+package sg.edu.nus.iss.vmcs.store;
 
 
 public class NoteAttribute implements MoneyAttribute {

@@ -12,7 +12,7 @@ import sg.edu.nus.iss.vmcs.system.Environment;
 import sg.edu.nus.iss.vmcs.system.MainController;
 
 public class StoreControllerTest extends TestCase{
-	private String propertyFilename=System.getProperty("propertyFilename");
+	private String propertyFilename="vmcs.properties";
 	
 	@Before
 	public void setup() throws Exception{
@@ -37,7 +37,7 @@ public class StoreControllerTest extends TestCase{
 		storeController.initialize();
 		//Assert
 		assertNotNull(storeController);
-		assertNotNull(storeController.getStore(Store.CASH));
+		assertNotNull(storeController.getStore(Store.COIN));
 		assertNotNull(storeController.getStore(Store.DRINK));
 	}
 	
@@ -49,7 +49,7 @@ public class StoreControllerTest extends TestCase{
 		
 		//Act initialize
 		storeController.initialize();		
-		CashStore cashStore=(CashStore)storeController.getStore(Store.CASH);
+		MoneyStore cashStore=(MoneyStore)storeController.getStore(Store.COIN);
 		DrinksStore drinksStore=(DrinksStore)storeController.getStore(Store.DRINK);
 		
 		//Assert
@@ -67,10 +67,10 @@ public class StoreControllerTest extends TestCase{
 		storeController.initialize();
 		
 		//Get Cash Store and test its elements
-		CashStore cashStore=(CashStore)storeController.getStore(Store.CASH);
+		MoneyStore cashStore=(MoneyStore)storeController.getStore(Store.COIN);
 		int storeSize=cashStore.getStoreSize();
 		for(int i=0;i<storeSize;i++){
-			CashStoreItem cashStoreItem=(CashStoreItem)cashStore.getStoreItem(i);
+			CoinStoreItem cashStoreItem=(CoinStoreItem)cashStore.getStoreItem(i);
 			Coin coin=(Coin)cashStoreItem.getContent();
 			//Assert
 			assertNotNull(coin);
@@ -117,10 +117,10 @@ public class StoreControllerTest extends TestCase{
 		storeController.initialize();
 		
 		//Get Cash Store and test its elements
-		CashStore cashStore=(CashStore)storeController.getStore(Store.CASH);
+		MoneyStore cashStore=(MoneyStore)storeController.getStore(Store.COIN);
 		int storeSize=cashStore.getStoreSize();
 		for(int i=0;i<storeSize;i++){
-			CashStoreItem cashStoreItem=(CashStoreItem)cashStore.getStoreItem(i);
+			CoinStoreItem cashStoreItem=(CoinStoreItem)cashStore.getStoreItem(i);
 			Coin coin=(Coin)cashStoreItem.getContent();
 			assertNotNull(coin);
 		}
@@ -134,14 +134,14 @@ public class StoreControllerTest extends TestCase{
 		
 		storeController.initialize();
 		
-		CashStore cashStore=(CashStore)storeController.getStore(Store.CASH);
+		MoneyStore cashStore=(MoneyStore)storeController.getStore(Store.COIN);
 		int storeSize=cashStore.getStoreSize();
 		for(int i=0;i<storeSize;i++){
-			CashStoreItem cashStoreItem=(CashStoreItem)cashStore.getStoreItem(i);
+			CoinStoreItem cashStoreItem=(CoinStoreItem)cashStore.getStoreItem(i);
 			Coin coin1=(Coin)cashStoreItem.getContent();
 			//Act storeCoin
 			storeController.storeCoin(coin1);
-			Coin coin2=cashStore.findCoin(coin1.getWeight());
+			Coin coin2=(Coin) cashStore.findMoney(coin1.getAttributes());
 			//Assert
 			assertNotNull(coin2);
 			assertSame(coin1,coin2);
@@ -158,11 +158,11 @@ public class StoreControllerTest extends TestCase{
 		storeController.initialize();
 		
 		//Get Cash Store and test its elements
-		CashStore cashStore=(CashStore)storeController.getStore(Store.CASH);
+		MoneyStore cashStore=(MoneyStore)storeController.getStore(Store.COIN);
 		//Act getStoreSize and test looping the store with the store size
-		int storeSize=storeController.getStoreSize(Store.CASH);
+		int storeSize=storeController.getStoreSize(Store.COIN);
 		for(int i=0;i<storeSize;i++){
-			CashStoreItem cashStoreItem=(CashStoreItem)cashStore.getStoreItem(i);
+			CoinStoreItem cashStoreItem=(CoinStoreItem)cashStore.getStoreItem(i);
 			Coin coin=(Coin)cashStoreItem.getContent();
 			//Assert
 			assertNotNull(coin);
@@ -189,9 +189,9 @@ public class StoreControllerTest extends TestCase{
 		storeController.initialize();
 		
 		//Act getStoreItems
-		StoreItem[] cashStoreItems=storeController.getStoreItems(Store.CASH);
+		StoreItem[] cashStoreItems=storeController.getStoreItems(Store.COIN);
 		for(int i=0;i<cashStoreItems.length;i++){
-			CashStoreItem cashStoreItem=(CashStoreItem)cashStoreItems[i];
+			CoinStoreItem cashStoreItem=(CoinStoreItem)cashStoreItems[i];
 			//Assert
 			assertNotNull(cashStoreItem);
 		}
@@ -211,13 +211,13 @@ public class StoreControllerTest extends TestCase{
 		mainCtrl.initialize();
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
-		CashStore cashStore=(CashStore)storeController.getStore(Store.CASH);
+		MoneyStore cashStore=(MoneyStore)storeController.getStore(Store.COIN);
 		int storeSize=cashStore.getStoreSize();
 		for(int i=0;i<storeSize;i++){
 			int qty1=12+i;
 			//Act changeStoreQty
-			storeController.changeStoreQty(Store.CASH, i, qty1);
-			CashStoreItem cashStoreItem=(CashStoreItem)cashStore.getStoreItem(i);
+			storeController.changeStoreQty(Store.COIN, i, qty1);
+			CoinStoreItem cashStoreItem=(CoinStoreItem)cashStore.getStoreItem(i);
 			int qty2=cashStoreItem.getQuantity();
 			//Assert
 			assertEquals(qty1,qty2);
@@ -241,11 +241,11 @@ public class StoreControllerTest extends TestCase{
 		mainCtrl.initialize();
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
-		CashStore cashStore=(CashStore)storeController.getStore(Store.CASH);
+		MoneyStore cashStore=(MoneyStore)storeController.getStore(Store.COIN);
 		int storeSize=cashStore.getStoreSize();
 		for(int i=0;i<storeSize;i++){
 			//Act getStoreItem
-			CashStoreItem cashStoreItem=(CashStoreItem)storeController.getStoreItem(Store.CASH, i);
+			CoinStoreItem cashStoreItem=(CoinStoreItem)storeController.getStoreItem(Store.COIN, i);
 			//Assert
 			assertNotNull(cashStoreItem);
 		}
@@ -286,13 +286,13 @@ public class StoreControllerTest extends TestCase{
 		mainCtrl.initialize();
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
-		CashStore cashStore=(CashStore)storeController.getStore(Store.CASH);
+		MoneyStore cashStore=(MoneyStore)storeController.getStore(Store.COIN);
 		//Act getTotalCash
 		int totalCash=storeController.getTotalCash();
 		int countTotalCash=0;
 		int storeSize=cashStore.getStoreSize();
 		for(int i=0;i<storeSize;i++){
-			CashStoreItem cashStoreItem=(CashStoreItem)cashStore.getStoreItem(i);
+			CoinStoreItem cashStoreItem=(CoinStoreItem)cashStore.getStoreItem(i);
 			Coin coin=(Coin)cashStoreItem.getContent();
 			countTotalCash+=(coin.getValue()*cashStoreItem.getQuantity());
 		}
@@ -306,9 +306,9 @@ public class StoreControllerTest extends TestCase{
 		mainCtrl.initialize();
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
-		CashStore cashStore=(CashStore)storeController.getStore(Store.CASH);
+		MoneyStore cashStore=(MoneyStore)storeController.getStore(Store.COIN);
 		//Act transferAll
-		int numOfCashTransfered=storeController.transferAll();
+		int numOfCashTransfered=cashStore.transferAll();
 		//Assert
 		if(numOfCashTransfered<0)
 			fail();
@@ -319,7 +319,7 @@ public class StoreControllerTest extends TestCase{
 		int countTotalCash=0;
 		int storeSize=cashStore.getStoreSize();
 		for(int i=0;i<storeSize;i++){
-			CashStoreItem cashStoreItem=(CashStoreItem)cashStore.getStoreItem(i);
+			CoinStoreItem cashStoreItem=(CoinStoreItem)cashStore.getStoreItem(i);
 			Coin coin=(Coin)cashStoreItem.getContent();
 			countTotalCash+=(coin.getValue()*cashStoreItem.getQuantity());
 		}
@@ -333,12 +333,12 @@ public class StoreControllerTest extends TestCase{
 		mainCtrl.initialize();
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
-		int cashStoreSize1=storeController.getStoreSize(Store.CASH);
+		int cashStoreSize1=storeController.getStoreSize(Store.COIN);
 		int drinksStoreSize1=storeController.getStoreSize(Store.DRINK);
 		//Act closeDown
 		storeController.closeDown();
 		storeController.initialize();
-		int cashStoreSize2=storeController.getStoreSize(Store.CASH);
+		int cashStoreSize2=storeController.getStoreSize(Store.COIN);
 		int drinksStoreSize2=storeController.getStoreSize(Store.DRINK);
 		//Assert
 		assertEquals(cashStoreSize1,cashStoreSize2);
@@ -373,7 +373,7 @@ public class StoreControllerTest extends TestCase{
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
 		//Act getStore
-		CashStore cashStore=(CashStore)storeController.getStore(Store.CASH);
+		MoneyStore cashStore=(MoneyStore)storeController.getStore(Store.COIN);
 		DrinksStore drinksStore=(DrinksStore)storeController.getStore(Store.DRINK);
 		//Assert
 		assertNotNull(cashStore);
@@ -386,16 +386,16 @@ public class StoreControllerTest extends TestCase{
 		mainCtrl.initialize();
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
-		CashStore cashStore=(CashStore)storeController.getStore(Store.CASH);
+		MoneyStore cashStore=(MoneyStore)storeController.getStore(Store.COIN);
 		int storeSize=cashStore.getStoreSize();
 		for(int i=0;i<storeSize;i++){
-			CashStoreItem cashStoreItem=(CashStoreItem)cashStore.getStoreItem(i);
+			CoinStoreItem cashStoreItem=(CoinStoreItem)cashStore.getStoreItem(i);
 			int qty1=cashStoreItem.getQuantity();
 			if(qty1==0)
 				continue;
 			//Act give change
 			storeController.giveChange(i,1);
-			cashStoreItem=(CashStoreItem)cashStore.getStoreItem(i);
+			cashStoreItem=(CoinStoreItem)cashStore.getStoreItem(i);
 			int qty2=cashStoreItem.getQuantity();
 			//Assert
 			assertEquals(qty1,qty2+1);

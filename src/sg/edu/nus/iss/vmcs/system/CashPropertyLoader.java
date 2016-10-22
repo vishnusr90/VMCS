@@ -39,25 +39,20 @@ public class CashPropertyLoader extends FilePropertyLoader {
 	 */
 	public StoreItem getItem (int index) {
 		int idx = index + 1;
-		Coin coin = new Coin();
 
-		String name = new String(NAME_LABEL + idx);
-		String value = getValue(name);
-		coin.setName(value);
+		String name = getValue( new String(NAME_LABEL + idx));
 
-		name = new String(WEIGHT_LABEL + idx);
-		value = getValue(name);
-		coin.setWeight(Double.parseDouble(value));
+		String weight = getValue(new String(WEIGHT_LABEL + idx));
 
-		name = new String(VALUE_LABEL + idx);
-		value = getValue(name);
-		coin.setValue(Integer.parseInt(value));
+		String value = getValue(new String(VALUE_LABEL + idx));
+                
+                String quantity = getValue(new String(QUANTITY_LABEL + idx));
+		
+                Coin coin = new Coin(Integer.parseInt(value), name, new CoinAttribute(Double.parseDouble(weight)));
 
-		name = new String(QUANTITY_LABEL + idx);
-		value = getValue(name);
 		int qty = Integer.parseInt(value);
 
-		CashStoreItem item = new CashStoreItem(coin, qty);
+		CoinStoreItem item = new CoinStoreItem(coin, qty);
 		return item;
 	}
 
@@ -69,14 +64,14 @@ public class CashPropertyLoader extends FilePropertyLoader {
 	public void setItem(int index, StoreItem cashItem) {
 		int idx = index + 1;
 
-		CashStoreItem item = (CashStoreItem) cashItem;
+		CoinStoreItem item = (CoinStoreItem) cashItem;
 		Coin cn = (Coin) item.getContent();
 		String itn = new String(NAME_LABEL + idx);
 
 		setValue(itn, cn.getName());
 
 		itn = new String(WEIGHT_LABEL + idx);
-		setValue(itn, String.valueOf(cn.getWeight()));
+		setValue(itn, String.valueOf(((CoinAttribute)cn.getAttributes()).getWeight()));
 
 		itn = new String(VALUE_LABEL + idx);
 		setValue(itn, String.valueOf(cn.getValue()));

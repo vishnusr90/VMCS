@@ -1,7 +1,11 @@
-package sg.edu.nus.iss.vmcs.refactoring;
+package sg.edu.nus.iss.vmcs.store;
 
 
 public class CoinAttribute implements MoneyAttribute {
+    
+        public CoinAttribute(double weight){
+            this.weight = weight;
+        }
 	private double weight;
 	public double getWeight(){
 		return weight;
