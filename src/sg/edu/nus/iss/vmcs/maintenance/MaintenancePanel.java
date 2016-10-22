@@ -276,7 +276,7 @@ public class MaintenancePanel extends Dialog {
 	 */
 	public void updateQtyDisplay(int type, int idx, int qty)
 		throws VMCSException {
-		if (type == Store.CASH) {
+		if (type == Store.COIN) {
 			cDisplay.displayQty(idx, qty);
 		} else
 			dDisplay.displayQty(idx, qty);
@@ -290,7 +290,7 @@ public class MaintenancePanel extends Dialog {
 	public void updateCurrentQtyDisplay(int type, int qty)
 		throws VMCSException {
 		int curIdx;
-		if (type == Store.CASH)
+		if (type == Store.COIN)
 			curIdx = cDisplay.getCurIdx();
 		else
 			curIdx = dDisplay.getCurIdx();

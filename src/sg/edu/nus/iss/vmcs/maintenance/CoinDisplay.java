@@ -38,8 +38,8 @@ public class CoinDisplay extends Panel {
 		mCtrl = mctrl;
 		storeCtrl = mCtrl.getMainController().getStoreController();
 
-		len = storeCtrl.getStoreSize(Store.CASH);
-		StoreItem[] items = storeCtrl.getStoreItems(Store.CASH);
+		len = storeCtrl.getStoreSize(Store.COIN);
+		StoreItem[] items = storeCtrl.getStoreItems(Store.COIN);
 
 		bi = new ButtonItemDisplay(TITLE, items, len);
 

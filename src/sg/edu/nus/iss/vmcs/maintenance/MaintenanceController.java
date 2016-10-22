@@ -8,12 +8,15 @@
 package sg.edu.nus.iss.vmcs.maintenance;
 
 import java.awt.Frame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import sg.edu.nus.iss.vmcs.customer.CustomerPanel;
 import sg.edu.nus.iss.vmcs.machinery.MachineryController;
-import sg.edu.nus.iss.vmcs.store.CashStoreItem;
+import sg.edu.nus.iss.vmcs.store.CoinStoreItem;
 import sg.edu.nus.iss.vmcs.store.DrinksBrand;
 import sg.edu.nus.iss.vmcs.store.DrinksStoreItem;
+import sg.edu.nus.iss.vmcs.store.MoneyStore;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreController;
 import sg.edu.nus.iss.vmcs.system.MainController;
@@ -110,13 +113,13 @@ public class MaintenanceController {
 	 */
 	public void displayCoin(int idx) {
 		StoreController sctrl = mCtrl.getStoreController();
-		CashStoreItem item;
-		try {
-			item = (CashStoreItem) sctrl.getStoreItem(Store.CASH, idx);
-			mpanel.getCoinDisplay().displayQty(idx, item.getQuantity());
-		} catch (VMCSException e) {
-			System.out.println("MaintenanceController.displayCoin:" + e);
-		}
+		CoinStoreItem item;
+                item = (CoinStoreItem) sctrl.getStoreItem(Store.COIN, idx);
+            try {
+                mpanel.getCoinDisplay().displayQty(idx, item.getQuantity());
+            } catch (VMCSException ex) {
+                
+            }
 
 	}
 
@@ -174,12 +177,12 @@ public class MaintenanceController {
 		int cc; // coin quantity;
 
 		try {
-			cc = sctrl.transferAll();
+			cc = ((MoneyStore)sctrl.getStore(Store.COIN)).transferAll();
 			mpanel.displayCoins(cc);
 			machctrl.displayCoinStock();
 			// the cash qty current is displayed in the Maintenance panel needs to be update to be 0;
 			// not required.
-			mpanel.updateCurrentQtyDisplay(Store.CASH, 0);
+			mpanel.updateCurrentQtyDisplay(Store.COIN, 0);
 		} catch (VMCSException e) {
 			System.out.println("MaintenanceController.transferAll:" + e);
 		}
