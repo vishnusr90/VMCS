@@ -110,7 +110,7 @@ public class DispenseController {
 			txCtrl.getMainController().getMachineryController().dispenseDrink(selectedBrand);
 			MainController mainCtrl=txCtrl.getMainController();
 			StoreController storeCtrl=mainCtrl.getStoreController();
-			StoreItem drinkStoreItem=storeCtrl.getStore(Store.DRINK).getStoreItem(selectedBrand);
+			StoreItem drinkStoreItem=storeCtrl.getStore(Store.DRINK).getItem(selectedBrand);
 			StoreObject storeObject=drinkStoreItem.getContent();
 			DrinksBrand drinksBrand=(DrinksBrand)storeObject;
 			String drinksName=drinksBrand.getName();

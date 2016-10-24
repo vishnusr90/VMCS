@@ -7,7 +7,8 @@
  */
 package sg.edu.nus.iss.vmcs.customer;
 
-import sg.edu.nus.iss.vmcs.store.CashStoreItem;
+import sg.edu.nus.iss.vmcs.store.CoinStoreItem;
+import sg.edu.nus.iss.vmcs.store.CoinStoreIterator;
 import sg.edu.nus.iss.vmcs.store.Coin;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreController;
@@ -54,9 +55,9 @@ public class ChangeGiver {
 			int changeBal=changeRequired;
 			MainController mainCtrl=txCtrl.getMainController();
 			StoreController storeCtrl=mainCtrl.getStoreController();
-			int cashStoreSize=storeCtrl.getStoreSize(Store.CASH); 
+			int cashStoreSize=storeCtrl.getStoreSize(Store.COIN); 
 			for(int i=cashStoreSize-1;i>=0;i--){
-				StoreItem cashStoreItem=storeCtrl.getStore(Store.CASH).getStoreItem(i);
+				StoreItem cashStoreItem=storeCtrl.getStore(Store.COIN).getItem(i);
 				int quantity=cashStoreItem.getQuantity();
 				Coin coin=(Coin)cashStoreItem.getContent();
 				int value=coin.getValue();
@@ -90,13 +91,16 @@ public class ChangeGiver {
 		boolean isAnyDenoEmpty=false;
 		MainController mainCtrl=txCtrl.getMainController();
 		StoreController storeCtrl=mainCtrl.getStoreController();
-		StoreItem[] cashStoreItems=storeCtrl.getStore(Store.CASH).getItems();
-		for(int i=0;i<cashStoreItems.length;i++){
-			StoreItem storeItem=cashStoreItems[i];
-			CashStoreItem cashStoreItem=(CashStoreItem)storeItem;
+		CoinStoreIterator coinStoreIterator = (CoinStoreIterator) storeCtrl.getStore(Store.COIN).getIterator();
+		coinStoreIterator.first();
+		while(coinStoreIterator.hasNext()){
+			StoreItem storeItem=coinStoreIterator.currentItem();
+			CoinStoreItem cashStoreItem=(CoinStoreItem)storeItem;
 			int quantity=cashStoreItem.getQuantity();
 			if(quantity==0)
 				isAnyDenoEmpty=true;
+			coinStoreIterator.next();
+			
 		}
 		custPanel.displayChangeStatus(isAnyDenoEmpty);
 	}

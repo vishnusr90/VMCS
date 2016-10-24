@@ -26,13 +26,17 @@ package sg.edu.nus.iss.vmcs.store;
  */
 public abstract class Store {
 	/**This constant attribute represent Cash*/
-	public final static int CASH  = 1;
+	public final static int COIN  = 1;
 	/**This constant attribute represnet Drink*/
 	public final static int DRINK = 2;
+    /**This constant attribute represnet Money Note*/
+    public final static int NOTE = 3;
 	/**This attribute hold the size of the store*/
 	protected int size;
     /**This attribute hold the items of the store*/
-	protected StoreItem items[];
+	private StoreItem items[];
+	protected StoreIterator storeIterator;
+	
 
 	/**
 	 * This constructor creates an instance of Store object.
@@ -62,9 +66,9 @@ public abstract class Store {
 	 * This method returns the {@link StoreItem} corresponding to the index entered.
 	 * @return the array of {@link StoreItem}.
 	 */
-	public StoreItem[] getItems() {
-		return items;
-	}
+//	public StoreItem[] getItems() {
+//		return items;
+//	}
 
 	/**
 	 * This method adds {@link StoreItem} into the store.
@@ -81,36 +85,36 @@ public abstract class Store {
 	 * This method returns the {@link StoreItem} with the given index.
 	 * @return the StoreItem.
 	 */
-	public StoreItem getStoreItem(int idx) {
+	public StoreItem getItem(int idx) {
 		if ((idx >= size) || (idx < 0))
             return null;
 		return items[idx];
 	}
 
-	/**
-	 * This method finds a {@link StoreObject} in the store with a specified name&#46;
-	 * @param name the name of the Store Object&#46;
-	 * @return the Store Object&#46; Return null if no matching Store Object found&#46;
-	 */
-	public StoreObject findObject(String name) {
-		String en;
-		StoreObject so;
-		int i;
-
-		for (i = 0; i < size; i++) {
-			if (items[i] == null)
-				return null;
-			so = items[i].getContent();
-			if (so == null)
-				return null;
-			en = so.getName();
-			if (en != null) {
-				if (en.compareTo(name) == 0)
-					return so;
-			}
-		}
-		return null;
-	}
+//	/**
+//	 * This method finds a {@link StoreObject} in the store with a specified name&#46;
+//	 * @param name the name of the Store Object&#46;
+//	 * @return the Store Object&#46; Return null if no matching Store Object found&#46;
+//	 */
+//	public StoreObject findObject(String name) {
+//		String en;
+//		StoreObject so;
+//		int i;
+//
+//		for (i = 0; i < size; i++) {
+//			if (items[i] == null)
+//				return null;
+//			so = items[i].getContent();
+//			if (so == null)
+//				return null;
+//			en = so.getName();
+//			if (en != null) {
+//				if (en.compareTo(name) == 0)
+//					return so;
+//			}
+//		}
+//		return null;
+//	}
 
 	/**
 	 * This method sets the total number of a store item held.
@@ -128,7 +132,10 @@ public abstract class Store {
 	 * This method return the store size; the total number of store item held.
 	 * @return the store size.
 	 */
-	public int getStoreSize() {
+	public int getSize() {
 		return size;
 	}
+	
+	public abstract StoreIterator getIterator(); 
+	
 }//End of class Store

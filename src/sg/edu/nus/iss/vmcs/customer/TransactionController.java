@@ -16,8 +16,13 @@ package sg.edu.nus.iss.vmcs.customer;
  */
 
 import java.awt.Frame;
+import sg.edu.nus.iss.vmcs.refactoring.MoneyReceiver;
+import sg.edu.nus.iss.vmcs.refactoring.observables.MoneyReceiverObserver;
+import sg.edu.nus.iss.vmcs.refactoring.observables.MoneyReceiverState;
+import sg.edu.nus.iss.vmcs.store.CoinStore;
 
 import sg.edu.nus.iss.vmcs.store.DrinksBrand;
+import sg.edu.nus.iss.vmcs.store.Money;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
 import sg.edu.nus.iss.vmcs.system.MainController;
@@ -29,7 +34,7 @@ import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
  * @author Team SE16T5E
  * @version 1.0 2008-10-01
  */
-public class TransactionController {
+public class TransactionController implements MoneyReceiverObserver {
 	private MainController mainCtrl;
 	private CustomerPanel custPanel;
 	private DispenseController dispenseCtrl;
@@ -45,6 +50,20 @@ public class TransactionController {
 	/**Identifier of the selected drink.*/
 	private int selection=-1;
 	
+        
+        public void  MoneyReceiverStateChanged(MoneyReceiver source, MoneyReceiverState newState){
+            if(newState == MoneyReceiverState.InvalidMoney){
+                this.terminateFault();
+            }
+	}
+	public void  MoneyRecevied(MoneyReceiver source, Money money){
+        
+		
+	}
+	public void  TotalMoneyReceviedChanged(MoneyReceiver source, int newtotal){
+		this.processMoneyReceived(newtotal);
+	}
+        
 	/**
 	 * This constructor creates an instance of the TransactionController.
 	 * @param mainCtrl the MainController.
@@ -52,8 +71,10 @@ public class TransactionController {
 	public TransactionController(MainController mainCtrl) {
 		this.mainCtrl = mainCtrl;
 		dispenseCtrl=new DispenseController(this);
-		coinReceiver=new CoinReceiver(this);
+		coinReceiver=new CoinReceiver((CoinStore) this.mainCtrl.getStoreController().getStore(Store.COIN));
 		changeGiver=new ChangeGiver(this);
+                
+                this.coinReceiver.subscribe(this);
 	}
 
 	/**
@@ -70,6 +91,8 @@ public class TransactionController {
 	public void displayCustomerPanel() {
 		SimulatorControlPanel scp = mainCtrl.getSimulatorControlPanel();
 	    custPanel = new CustomerPanel((Frame) scp, this);
+            
+            this.coinReceiver.subscribe(custPanel);
 		custPanel.display();
 		dispenseCtrl.updateDrinkPanel();
 		dispenseCtrl.allowSelection(true);

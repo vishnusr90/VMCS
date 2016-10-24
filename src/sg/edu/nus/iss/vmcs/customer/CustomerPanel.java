@@ -30,7 +30,13 @@ import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import sg.edu.nus.iss.vmcs.refactoring.MoneyReceiver;
+import sg.edu.nus.iss.vmcs.refactoring.observables.MoneyReceiverObserver;
+import sg.edu.nus.iss.vmcs.refactoring.observables.MoneyReceiverState;
+import sg.edu.nus.iss.vmcs.store.Money;
 
+import sg.edu.nus.iss.vmcs.store.MoneyStore;
+import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
 import sg.edu.nus.iss.vmcs.util.LabelledValue;
 import sg.edu.nus.iss.vmcs.util.WarningDisplay;
@@ -73,7 +79,56 @@ import sg.edu.nus.iss.vmcs.util.WarningDisplay;
  * @author Team SE16T5E
  * @version 1.0 2008-10-01
  */
-public class CustomerPanel extends Dialog {
+public class CustomerPanel extends Dialog  implements MoneyReceiverObserver {
+	
+
+	public void  MoneyRecevied(MoneyReceiver source, Money money){
+		this.setCoinInputBoxActive(false);
+		this.displayInvalidCoin(false);
+	}
+	
+	public void  TotalMoneyReceviedChanged(MoneyReceiver source, int newtotal){
+		this.setTotalMoneyInserted(newtotal);
+		//this.setChange("");
+	}
+	
+	public void  MoneyReceiverStateChanged(MoneyReceiver source, MoneyReceiverState newState){
+		switch(newState){
+			case Started:
+				this.setCoinInputBoxActive(true);
+				//this.setTotalMoneyInserted(0);
+				break;
+			case Activiated:
+				this.setCoinInputBoxActive(true); 
+				break;
+			case Stoped:
+				this.setCoinInputBoxActive(false);
+				break;
+			case Completed:
+				break;
+			case Continued:
+				this.setCoinInputBoxActive(true);
+				break;
+			case Disabled:
+				this.setCoinInputBoxActive(false);
+				break;
+			case InvalidMoney:
+				this.displayInvalidCoin(true);
+				this.setChange("Invalid Coin");
+				//this.setCoinInputBoxActive(false);
+				break;
+			case  Refunded:
+				this.setChange(source.getTotalInserted());
+				this.setTotalMoneyInserted(0);
+				this.displayInvalidCoin(false);
+				break;
+			case Reseted:
+				//this.setTotalMoneyInserted(0);
+				break;
+		}
+	}
+	
+	
 	private Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
 	private int frameX=0;
 	private int frameY=0;
@@ -119,7 +174,10 @@ public class CustomerPanel extends Dialog {
 			}
 		});
 		
-		coinInputBox=new CoinInputBox(txCtrl);
+		MoneyStore store = (MoneyStore) txCtrl.getMainController().getStoreController().getStore(Store.COIN);
+		CoinReceiver coinReceiver = txCtrl.getCoinReceiver();
+		coinInputBox=new CoinInputBox(store, coinReceiver);
+		
 		drinkSelectionBox=new DrinkSelectionBox(txCtrl);
 		TerminateButtonListener terminateButtonListener=new TerminateButtonListener(txCtrl);
 		

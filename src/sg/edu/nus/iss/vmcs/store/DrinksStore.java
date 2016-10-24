@@ -30,5 +30,16 @@ public class DrinksStore extends Store {
 	 * This constructor creates an instance of DrinksStore object.
 	 */
 	public DrinksStore() {
+		super();
+	}
+
+	@Override
+	public StoreIterator getIterator() {
+
+		if(storeIterator == null){
+			return new DrinkStoreIterator(this);
+		}
+		else
+			return storeIterator;
 	}
 }//End of class DrinksStore

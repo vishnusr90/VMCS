@@ -9,6 +9,7 @@ package sg.edu.nus.iss.vmcs.customer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import sg.edu.nus.iss.vmcs.store.CoinAttribute;
 
 /**
  * This control object implements the coin denomination selection
@@ -34,6 +35,6 @@ public class CoinInputListener implements ActionListener{
 	 */
 	public void actionPerformed(ActionEvent ev){
 		CoinButton coinButton=(CoinButton)ev.getSource();
-		coinReceiver.receiveCoin(coinButton.getWeight());
+		coinReceiver.receiveMoney(coinButton.getAttribute());
 	}
 }//End of class CoinInputListener
