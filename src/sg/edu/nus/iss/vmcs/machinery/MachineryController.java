@@ -162,11 +162,11 @@ public class MachineryController {
 	 * update the display on the MachinerySimulatorPanel.
 	 * @throws VMCSException if fail to update cash store display.
 	 */
-	public void storeCoin(Coin c) throws VMCSException {
-		storeCtrl.storeCoin(c);
-		if (ml != null)
-			ml.getCashStoreDisplay().update();
-	}
+//	public void storeCoin(Coin c) throws VMCSException {
+//		storeCtrl.storeCoin(c);
+//		if (ml != null)
+//			ml.getCashStoreDisplay().update();
+//	}
 
 	/**
 	 * This method instructs the DrinksStore to dispense one drink, and then

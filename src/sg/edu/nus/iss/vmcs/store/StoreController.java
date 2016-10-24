@@ -84,14 +84,15 @@ public class StoreController {
 		// get the drink file from the environment property file;
 		int numOfItems = drinksLoader.getNumOfItems();
 		dStore.setStoreSize(numOfItems);
-
+		
 		for (int i = 0; i < numOfItems; i++) {
             DrinksStoreItem item = (DrinksStoreItem) drinksLoader.getItem(i);
-			StoreObject brand = item.getContent();
-			StoreObject existingBrand = dStore.findObject(brand.getName());
-			if (existingBrand != null) {
-			    item.setContent(existingBrand);
-			}
+//			DrinksStoreItem strItem = (DrinksStoreItem) strItr.currentItem();
+//          StoreObject brand = item.getContent();
+//			StoreObject existingBrand = dStore.findObject(brand.getName());
+//			if (existingBrand != null) {
+//			    item.setContent(existingBrand);
+//			}
 			dStore.addItem(i, item);
 		}
 	}
@@ -117,12 +118,21 @@ public class StoreController {
 	 * update the display on the Machinery Simulator Panel.
 	 * @param c the Coin to be stored.
 	 */
-	public void storeCoin(Coin c) {
-		int idx = mStore.findMoneyStoreIndex(c.getAttributes());
-		CoinStoreItem item;
-		item = (CoinStoreItem) this.getStoreItem(Store.COIN, idx);
-		item.increment();
-	}
+//	public void storeCoin(Coin c) {
+////		int idx = mStore.findMoneyStoreIndex(c.getAttributes());
+////		CoinStoreItem item;
+////		item = (CoinStoreItem) this.getStoreItem(Store.COIN, idx);
+////		item.increment();
+//		StoreIterator strItr = mStore.getIterator();
+//		strItr.first();
+//		while(strItr.hasNext()){
+//			Money strMoney = (Money) strItr.currentItem().getContent();
+//			if(strMoney.equals(money)){
+//				strItr.currentItem().increment();
+//			}
+//			strItr.next();
+//		}
+//	}
 
 	/**
 	 * This method return the total size of the {@link Store} of the given type of {@link Store}.
@@ -131,9 +141,9 @@ public class StoreController {
 	 */
 	public int getStoreSize(int type) {
 		if (type == Store.COIN)
-			return mStore.getStoreSize();
+			return mStore.getSize();
 		else
-			return dStore.getStoreSize();
+			return dStore.getSize();
 	}
 
 	/**
@@ -141,11 +151,11 @@ public class StoreController {
 	 * @param type the type of Store.
 	 * @return an array of StoreItem.
 	 */
-	public StoreItem[] getStoreItems(int type) {
+	public StoreIterator getStoreIterator(int type) {
 		if (type == Store.COIN)
-			return mStore.getItems();
+			return mStore.getIterator();
 		else
-			return dStore.getItems();
+			return dStore.getIterator();
 	}
 
 	/**
@@ -176,9 +186,9 @@ public class StoreController {
 	 */
 	public StoreItem getStoreItem(int type, int idx) {
 		if (type == Store.COIN)
-			return mStore.getStoreItem(idx);
+			return mStore.getItem(idx);
 		else
-			return dStore.getStoreItem(idx);
+			return dStore.getItem(idx);
 	}
 
 	/**
@@ -189,7 +199,7 @@ public class StoreController {
 	public void setPrice(int idx, int pr)  {
 		DrinksStoreItem item;
 
-		item = (DrinksStoreItem) dStore.getStoreItem(idx);
+		item = (DrinksStoreItem) dStore.getItem(idx);
 		DrinksBrand bd;
 
 		bd = (DrinksBrand) item.getContent();
@@ -205,7 +215,7 @@ public class StoreController {
 		int i;
 		int size;
 
-		size = mStore.getStoreSize();
+		size = mStore.getSize();
 		CoinStoreItem item;
 		int qty;
 		int val;
@@ -213,13 +223,33 @@ public class StoreController {
 		Coin c;
 
 		for (i = 0; i < size; i++) {
-			item = (CoinStoreItem) mStore.getStoreItem(i);
+			item = (CoinStoreItem) mStore.getItem(i);
 			qty = item.getQuantity();
 			c = (Coin) item.getContent();
 			val = c.getValue();
 			tc = tc + qty * val;
 		}
 		return tc;
+	}
+	
+	/**
+	 * This method will instruct the {@link CashStore} to store the {@link Coin} sent as input, and then
+	 * update the display on the {@link sg.edu.nus.iss.vmcs.machinery.MachinerySimulatorPanel}.
+	 * @return the number of cash transfered.
+	 */
+	public int transferAll()  {
+		int i;
+				int cc = 0; // coin quauntity;
+			int size = mStore.getSize();
+		
+				CoinStoreItem item;
+				for (i = 0; i < size; i++) {
+					item = (CoinStoreItem) mStore.getItem(i);
+					cc = cc + item.getQuantity();
+					item.setQuantity(0);
+				}
+		
+				return cc;
 	}
 
 	/**
@@ -238,10 +268,10 @@ public class StoreController {
 	 * @throws IOException if fail to save cash properties.
 	 */
 	private void saveCashProperties() throws IOException {
-		int size = mStore.getStoreSize();
+		int size = mStore.getSize();
 		cashLoader.setNumOfItems(size);
 		for (int i = 0; i < size; i++) {
-			cashLoader.setItem(i, mStore.getStoreItem(i));
+			cashLoader.setItem(i, mStore.getItem(i));
 		}
 		cashLoader.saveProperty();
 	}
@@ -252,10 +282,10 @@ public class StoreController {
 	 * @throws IOException if fail to save drinks properties.
 	 */
 	private void saveDrinksProperties() throws IOException {
-		int size = dStore.getStoreSize();
+		int size = dStore.getSize();
 		drinksLoader.setNumOfItems(size);
 		for (int i = 0; i < size; i++) {
-			drinksLoader.setItem(i, dStore.getStoreItem(i));
+			drinksLoader.setItem(i, dStore.getItem(i));
 		}
 		drinksLoader.saveProperty();
 	}

@@ -177,7 +177,7 @@ public class MaintenanceController {
 		int cc; // coin quantity;
 
 		try {
-			cc = ((MoneyStore)sctrl.getStore(Store.COIN)).transferAll();
+			cc = sctrl.transferAll();
 			mpanel.displayCoins(cc);
 			machctrl.displayCoinStock();
 			// the cash qty current is displayed in the Maintenance panel needs to be update to be 0;

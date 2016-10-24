@@ -11,9 +11,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Panel;
+import java.util.ArrayList;
 
 import sg.edu.nus.iss.vmcs.store.MoneyStore;
 import sg.edu.nus.iss.vmcs.store.CoinStoreItem;
+import sg.edu.nus.iss.vmcs.store.CoinStoreIterator;
 import sg.edu.nus.iss.vmcs.store.Coin;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
 import sg.edu.nus.iss.vmcs.store.StoreObject;
@@ -26,38 +28,44 @@ import sg.edu.nus.iss.vmcs.store.StoreObject;
  */
 @SuppressWarnings("serial")
 public class CoinInputBox extends Panel{
-	private CoinButton[] btnCoinButton;
+	private ArrayList<CoinButton> btnCoinButton;
 	
 	/**
 	 * This constructor creates an instance of the object.
 	 * @param cctrl the TransactionController.
 	 */
 	public CoinInputBox(MoneyStore store, CoinReceiver coinReceiver){
-		int cashStoreSize= store.getStoreSize();
-		StoreItem[] cashStoreItems= store.getItems();
+		int cashStoreSize= store.getSize();
+		CoinStoreIterator coinStoreIterator = (CoinStoreIterator) store.getIterator();
+		coinStoreIterator.first();
 		
-		btnCoinButton=new CoinButton[cashStoreSize+1];
+		btnCoinButton=new ArrayList<CoinButton>();
 		CoinInputListener coinInputListener=new CoinInputListener(coinReceiver);
 		
 		setLayout(new GridBagLayout());
-		for(int i=0;i<cashStoreItems.length;i++){
-			StoreItem storeItem=cashStoreItems[i];
+		for(int i = 0;coinStoreIterator.hasNext(); i++){
+			StoreItem storeItem=coinStoreIterator.currentItem();
 			CoinStoreItem cashStoreItem=(CoinStoreItem)storeItem;
 			StoreObject storeObject=cashStoreItem.getContent();
 			Coin coin=(Coin)storeObject;
 			String coinName=coin.getName();
 			int coinValue=coin.getValue();
-			btnCoinButton[i]=new CoinButton(coinName,coinValue,coin.getAttributes());
-			btnCoinButton[i].addActionListener(coinInputListener);
-			add(btnCoinButton[i],new GridBagConstraints(i,1,1,1,1.0,0.0,
+			CoinButton btn =new CoinButton(coinName,coinValue,coin.getAttributes());
+			btn.addActionListener(coinInputListener);
+			add(btn,new GridBagConstraints(i,1,1,1,1.0,0.0,
 				    GridBagConstraints.EAST,GridBagConstraints.HORIZONTAL,
 				    new Insets(0,0,0,0),10,8));
+			btnCoinButton.add(btn);
+			coinStoreIterator.next();
 		}
-		btnCoinButton[cashStoreSize]=new CoinButton("Invalid",-1,MoneyStore.INVALID_COIN_WEIGHT);
-		btnCoinButton[cashStoreSize].addActionListener(coinInputListener);
-		add(btnCoinButton[cashStoreSize],new GridBagConstraints(cashStoreSize,1,1,1,1.0,0.0,
+		
+		CoinButton inValidButton = new CoinButton("Invalid",-1,MoneyStore.INVALID_COIN_WEIGHT);
+		
+		inValidButton.addActionListener(coinInputListener);
+		add(inValidButton,new GridBagConstraints(cashStoreSize,1,1,1,1.0,0.0,
 			    GridBagConstraints.EAST,GridBagConstraints.HORIZONTAL,
 			    new Insets(0,0,0,0),10,8));
+		btnCoinButton.add(inValidButton);
 	}
 	
 	/**
@@ -67,8 +75,8 @@ public class CoinInputBox extends Panel{
 	 */
 	public void setActive(boolean active){
 		if(btnCoinButton!=null){
-			for(int i=0;i<btnCoinButton.length;i++){
-				btnCoinButton[i].setEnabled(active);
+			for(int i=0;i<btnCoinButton.size();i++){
+				btnCoinButton.get(i).setEnabled(active);
 			}
 		}
 	}

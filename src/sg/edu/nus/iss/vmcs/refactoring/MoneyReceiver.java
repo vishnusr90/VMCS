@@ -9,6 +9,7 @@ import java.util.List;
 import sg.edu.nus.iss.vmcs.refactoring.observables.MoneyReceiverObserver;
 import sg.edu.nus.iss.vmcs.refactoring.observables.MoneyReceiverState;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
+import sg.edu.nus.iss.vmcs.store.StoreIterator;
 
 public abstract class MoneyReceiver{
 	
@@ -94,9 +95,19 @@ public abstract class MoneyReceiver{
 			notifyMoneyReceiverStateChanged(MoneyReceiverState.InvalidMoney);
 			return;
 		}
-		Money money = moneyStore.findMoney(moneyAttribute);
-		moneyInserted.add(money);
-		notifyMoneyRecevied(money);
+		
+		StoreIterator strItr = moneyStore.getIterator();
+		strItr.first();
+		while(strItr.hasNext()){
+			Money strMoney = (Money) strItr.currentItem().getContent();
+			if(strMoney.getAttributes().equals(moneyAttribute)){
+				moneyInserted.add(strMoney);
+				notifyMoneyRecevied(strMoney);
+			}
+			strItr.next();
+		}
+		//Money money = moneyStore.findMoney(moneyAttribute);
+		
 		notifyTotalMoneyReceviedChanged();
 	}
 
@@ -114,12 +125,22 @@ public abstract class MoneyReceiver{
 	 * @return return TRUE if cash has been stored, else return FALSE.
 	 */
 	public boolean storeCash(){
+		StoreIterator strItr = moneyStore.getIterator();
+		
 		for (Money money : moneyInserted) {
-			int index = moneyStore.findMoneyStoreIndex(money.getAttributes());
-			if(index == -1) return false;
-		    StoreItem item = moneyStore.getStoreItem(index);
-		    if(item == null) return false;
-		    item.increment();
+			strItr.first();
+			while(strItr.hasNext()){
+				Money strMoney = (Money) strItr.currentItem().getContent();
+				if(strMoney.equals(money)){
+					strItr.currentItem().increment();
+				}
+				strItr.next();
+			}
+//			int index = moneyStore.findMoneyStoreIndex(money.getAttributes());
+//			if(index == -1) return false;
+//		    StoreItem item = moneyStore.getItem(index);
+//		    if(item == null) return false;
+//		    item.increment();
 		}
 		resetReceived();
 		notifyMoneyReceiverStateChanged(MoneyReceiverState.Completed);
