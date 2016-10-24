@@ -9,9 +9,11 @@ package sg.edu.nus.iss.vmcs.customer;
 
 import sg.edu.nus.iss.vmcs.store.CoinStoreItem;
 import sg.edu.nus.iss.vmcs.store.Coin;
+import sg.edu.nus.iss.vmcs.store.Money;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreController;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
+import sg.edu.nus.iss.vmcs.store.StoreIterator;
 import sg.edu.nus.iss.vmcs.system.MainController;
 import sg.edu.nus.iss.vmcs.util.VMCSException;
 
@@ -56,7 +58,7 @@ public class ChangeGiver {
                 StoreController storeCtrl=mainCtrl.getStoreController();
                 int cashStoreSize=storeCtrl.getStoreSize(Store.COIN); 
                 for(int i=cashStoreSize-1;i>=0;i--){
-                        StoreItem cashStoreItem=storeCtrl.getStore(Store.COIN).getStoreItem(i);
+                        StoreItem cashStoreItem=storeCtrl.getStore(Store.COIN).getItem(i);
                         int quantity=cashStoreItem.getQuantity();
                         Coin coin=(Coin)cashStoreItem.getContent();
                         int value=coin.getValue();
@@ -85,19 +87,19 @@ public class ChangeGiver {
      */
     public void displayChangeStatus(){
         CustomerPanel custPanel=txCtrl.getCustomerPanel();
-        if(custPanel==null)
-                return;
-        boolean isAnyDenoEmpty=false;
-        MainController mainCtrl=txCtrl.getMainController();
-        StoreController storeCtrl=mainCtrl.getStoreController();
-        StoreItem[] cashStoreItems=storeCtrl.getStore(Store.COIN).getItems();
-        for(int i=0;i<cashStoreItems.length;i++){
-                StoreItem storeItem=cashStoreItems[i];
-                CoinStoreItem cashStoreItem=(CoinStoreItem)storeItem;
-                int quantity=cashStoreItem.getQuantity();
-                if(quantity==0)
-                        isAnyDenoEmpty=true;
-        }
-        custPanel.displayChangeStatus(isAnyDenoEmpty);
+        if(custPanel==null) return;
+        custPanel.displayChangeStatus(false);
+        this.txCtrl.getMoneyReceivers().forEach((MoneyReceiver x)->{
+            StoreIterator strItr = x.getStore().getIterator();
+            strItr.first();
+            while(strItr.hasNext()){
+                int quantity = strItr.currentItem().getQuantity();
+                if(quantity == 0) {
+                    custPanel.displayChangeStatus(true);
+                    break;
+                }
+                strItr.next();
+            }
+        });
     }
 }//End of class ChangeGiver

@@ -11,12 +11,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Panel;
+import java.util.ArrayList;
 
 import sg.edu.nus.iss.vmcs.store.DrinksBrand;
 import sg.edu.nus.iss.vmcs.store.DrinksStoreItem;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreController;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
+import sg.edu.nus.iss.vmcs.store.StoreIterator;
 import sg.edu.nus.iss.vmcs.store.StoreObject;
 import sg.edu.nus.iss.vmcs.system.MainController;
 
@@ -26,7 +28,7 @@ import sg.edu.nus.iss.vmcs.system.MainController;
  * @version 1.0 2008-10-01
  */
 public class DrinkSelectionBox extends Panel{
-	private DrinkSelectionItem drinkSelectionItems[];
+	private ArrayList<DrinkSelectionItem> drinkSelectionItems;
 	private TransactionController txCtrl;
 	
 	/**Array of integers providing identifiers for each selection button.*/
@@ -40,24 +42,26 @@ public class DrinkSelectionBox extends Panel{
 		MainController mainCtrl=txCtrl.getMainController();
 		StoreController storeCtrl=mainCtrl.getStoreController();
 		int drinkStoreSize=storeCtrl.getStoreSize(Store.DRINK);
-		StoreItem[] drinkStoreItems=storeCtrl.getStore(Store.DRINK).getItems();
-		
-		drinkSelectionItems=new DrinkSelectionItem[drinkStoreSize];
+		StoreIterator drinkStoreIterator=(StoreIterator) storeCtrl.getStore(Store.DRINK).getIterator();
+		drinkStoreIterator.first();
+		drinkSelectionItems=new ArrayList<DrinkSelectionItem>();
 		
 		setLayout(new GridBagLayout());
-		for(int i=0;i<drinkStoreItems.length;i++){
-			StoreItem storeItem=drinkStoreItems[i];
+		for(int i=0;drinkStoreIterator.hasNext();i++){
+			StoreItem storeItem=drinkStoreIterator.currentItem();
 			DrinksStoreItem drinksStoreItem=(DrinksStoreItem)storeItem;
 			StoreObject storeObject=drinksStoreItem.getContent();
 			DrinksBrand drinksBrand=(DrinksBrand)storeObject;
 			String drinksName=drinksBrand.getName();
 			int drinksPrice=drinksBrand.getPrice();
 			int drinksQuantity=drinksStoreItem.getQuantity();
-			drinkSelectionItems[i]=new DrinkSelectionItem(i,drinksName,drinksPrice,drinksQuantity,true,false);
-			drinkSelectionItems[i].addListener(new DrinkSelectionListener(txCtrl,i));
-			add(drinkSelectionItems[i],new GridBagConstraints(0,i,1,1,1.0,0.0,
+			DrinkSelectionItem drinkSelectionItem =new DrinkSelectionItem(i,drinksName,drinksPrice,drinksQuantity,true,false);
+			drinkSelectionItem.addListener(new DrinkSelectionListener(txCtrl,i));
+			add(drinkSelectionItem,new GridBagConstraints(0,i,1,1,1.0,0.0,
 				    GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,
-				    new Insets(5,0,0,0),10,0));  
+				    new Insets(5,0,0,0),10,0)); 
+			drinkSelectionItems.add(drinkSelectionItem);
+			drinkStoreIterator.next();
 		}
 	}
 	
@@ -69,10 +73,10 @@ public class DrinkSelectionBox extends Panel{
 	 * @param name the name of the 
 	 */
 	public void update(int brand, int quantity, int price, String name){
-		if(drinkSelectionItems==null||drinkSelectionItems.length==0){
+		if(drinkSelectionItems==null||drinkSelectionItems.size()==0){
 			return;
 		}
-		DrinkSelectionItem item=drinkSelectionItems[brand];
+		DrinkSelectionItem item=drinkSelectionItems.get(0);
 		item.setQuantity(quantity);
 		item.setPrice(price);
 		item.setName(name);
@@ -83,12 +87,12 @@ public class DrinkSelectionBox extends Panel{
 	 * @param active TRUE to activate, FALSE to deactivate the drink selection buttons.
 	 */
 	public void setActive(boolean active){
-		if(drinkSelectionItems==null||drinkSelectionItems.length==0)
+		if(drinkSelectionItems==null||drinkSelectionItems.size()==0)
 			return;
 		MainController mainCtrl=txCtrl.getMainController();
 		StoreController storeCtrl=mainCtrl.getStoreController();
-		for(int i=0;i<drinkSelectionItems.length;i++){
-			DrinkSelectionItem item=drinkSelectionItems[i];
+		for(int i=0;i<drinkSelectionItems.size();i++){
+			DrinkSelectionItem item=drinkSelectionItems.get(i);
 			StoreItem storeItem=storeCtrl.getStoreItem(Store.DRINK, i);
 			int quantity=storeItem.getQuantity();
 			item.setState(active);
@@ -101,9 +105,9 @@ public class DrinkSelectionBox extends Panel{
 	 * @param active TRUE to activate, FALSE to deactivate the drink selection buttons.
 	 */
 	public void setState(int index, boolean active){
-		if(drinkSelectionItems==null||drinkSelectionItems.length==0||index<-1||index>=drinkSelectionItems.length)
+		if(drinkSelectionItems==null||drinkSelectionItems.size()==0||index<-1||index>=drinkSelectionItems.size())
 			return;
-		drinkSelectionItems[index].setState(active);
+		drinkSelectionItems.get(index).setState(active);
 	}
 	
 	/**
@@ -113,9 +117,9 @@ public class DrinkSelectionBox extends Panel{
 	 * @param active TRUE to activate, FALSE to deactivate the drink selection buttons.
 	 */
 	public void setItemState(int index, boolean active){
-		if(drinkSelectionItems==null||drinkSelectionItems.length==0)
+		if(drinkSelectionItems==null||drinkSelectionItems.size()==0)
 			return;
-		drinkSelectionItems[index].setItemState(active);
+		drinkSelectionItems.get(index).setItemState(active);
 	}
 	
 	

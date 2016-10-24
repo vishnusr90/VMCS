@@ -10,6 +10,8 @@ package sg.edu.nus.iss.vmcs.store;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import sg.edu.nus.iss.vmcs.system.CashPropertyLoader;
+import sg.edu.nus.iss.vmcs.system.DrinkPropertyLoader;
 
 /**
  * This control object manages changes in CashStore attributes and 
@@ -29,6 +31,12 @@ import java.util.List;
  * @author Olivo Miotto, Pang Ping Li
  */
 public class StoreController {
+
+    private static StoreController instance;
+    public static StoreController getInstance(CashPropertyLoader cashLoader, DrinkPropertyLoader drinksLoader) {
+        if(instance == null) instance = new StoreController(cashLoader, drinksLoader);
+        return instance;
+    }
        
     private final List<MoneyStore> moneyStores;
     private DrinksStore dStore;
@@ -41,7 +49,7 @@ public class StoreController {
      * @param cashLoader the cash loader.
      * @param drinksLoader the drinks loader.
      */
-    public StoreController(
+    private StoreController(
             PropertyLoader cashLoader,
             PropertyLoader drinksLoader) {
         this.cashLoader = cashLoader;
@@ -143,27 +151,11 @@ public class StoreController {
     public int getStoreSize(int type) {
         switch (type) {
             case Store.COIN:
-                return getCoinStore().getStoreSize();
+                return getCoinStore().getSize();
             case Store.NOTE:
-                return getNoteStore().getStoreSize();
+                return getNoteStore().getSize();
             default:
-                return dStore.getStoreSize();
-        }
-    }
-
-    /**
-     * This method returns an array of {@link StoreItem} of the given type of {@link Store}.
-     * @param type the type of Store.
-     * @return an array of StoreItem.
-     */
-    public StoreItem[] getStoreItems(int type) {
-        switch (type) {
-            case Store.COIN:
-                return getCoinStore().getItems();
-            case Store.NOTE:
-                return getNoteStore().getItems();
-            default:
-                return dStore.getItems();
+                return dStore.getSize();
         }
     }
 
@@ -200,11 +192,11 @@ public class StoreController {
     public StoreItem getStoreItem(int type, int idx) {
         switch (type) {
             case Store.COIN:
-                return getCoinStore().getStoreItem(idx);
+                return getCoinStore().getItem(idx);
             case Store.NOTE:
-                return getNoteStore().getStoreItem(idx);
+                return getNoteStore().getItem(idx);
             default:
-                return dStore.getStoreItem(idx);
+                return dStore.getItem(idx);
         }
     }
 
@@ -216,7 +208,7 @@ public class StoreController {
     public void setPrice(int idx, int pr)  {
         DrinksStoreItem item;
 
-        item = (DrinksStoreItem) dStore.getStoreItem(idx);
+        item = (DrinksStoreItem) dStore.getItem(idx);
         DrinksBrand bd;
 
         bd = (DrinksBrand) item.getContent();
@@ -233,13 +225,13 @@ public class StoreController {
         int size;
         int tc = 0;
         for(MoneyStore store : this.moneyStores){
-            size = store.getStoreSize();
-            CoinStoreItem item;
+            size = store.getSize();
+            StoreItem item;
             int qty;
             int val;
             Money m;
             for (i = 0; i < size; i++) {
-                item = (CoinStoreItem) store.getStoreItem(i);
+                item = store.getItem(i);
                 qty = item.getQuantity();
                 m = (Money) item.getContent();
                 val = m.getValue();
@@ -265,10 +257,10 @@ public class StoreController {
      * @throws IOException if fail to save cash properties.
      */
     private void saveCashProperties() throws IOException {
-        int size = getCoinStore().getStoreSize();
+        int size = getCoinStore().getSize();
         cashLoader.setNumOfItems(size);
         for (int i = 0; i < size; i++) {
-            cashLoader.setItem(i, getCoinStore().getStoreItem(i));
+            cashLoader.setItem(i, getCoinStore().getItem(i));
         }
         cashLoader.saveProperty();
     }
@@ -279,10 +271,10 @@ public class StoreController {
      * @throws IOException if fail to save drinks properties.
      */
     private void saveDrinksProperties() throws IOException {
-        int size = dStore.getStoreSize();
+        int size = dStore.getSize();
         drinksLoader.setNumOfItems(size);
         for (int i = 0; i < size; i++) {
-                drinksLoader.setItem(i, dStore.getStoreItem(i));
+                drinksLoader.setItem(i, dStore.getItem(i));
         }
         drinksLoader.saveProperty();
     }
@@ -327,5 +319,9 @@ public class StoreController {
         item = (CoinStoreItem) getStoreItem(Store.COIN, idx);
         for (int i = 0; i < numOfCoins; i++)
                 item.decrement();
+    }
+    
+    public List<MoneyStore> getMoneyStores(){
+        return this.moneyStores;
     }
 }//End of class StoreController

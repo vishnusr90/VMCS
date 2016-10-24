@@ -117,7 +117,7 @@ public abstract class MoneyReceiver{
 		for (Money money : moneyInserted) {
 			int index = moneyStore.findMoneyStoreIndex(money.getAttributes());
 			if(index == -1) return false;
-		    StoreItem item = moneyStore.getStoreItem(index);
+		    StoreItem item = moneyStore.getItem(index);
 		    if(item == null) return false;
 		    item.increment();
 		}

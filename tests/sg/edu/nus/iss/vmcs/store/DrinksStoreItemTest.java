@@ -39,9 +39,9 @@ public class DrinksStoreItemTest extends TestCase{
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
 		DrinksStore drinkStore=(DrinksStore)storeController.getStore(Store.DRINK);
-		int storeSize=drinkStore.getStoreSize();
+		int storeSize=drinkStore.getSize();
 		for(int i=0;i<storeSize;i++){
-			DrinksStoreItem drinkStoreItem=(DrinksStoreItem)drinkStore.getStoreItem(i);
+			DrinksStoreItem drinkStoreItem=(DrinksStoreItem)drinkStore.getItem(i);
 			DrinksBrand drinksBrand1=new DrinksBrand();
 			//Act setContent
 			drinkStoreItem.setContent(drinksBrand1);
@@ -60,9 +60,9 @@ public class DrinksStoreItemTest extends TestCase{
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
 		DrinksStore drinksStore=(DrinksStore)storeController.getStore(Store.DRINK);
-		int storeSize=drinksStore.getStoreSize();
+		int storeSize=drinksStore.getSize();
 		for(int i=0;i<storeSize;i++){
-			DrinksStoreItem drinksStoreItem=(DrinksStoreItem)drinksStore.getStoreItem(i);
+			DrinksStoreItem drinksStoreItem=(DrinksStoreItem)drinksStore.getItem(i);
 			DrinksBrand drinksBrand1=new DrinksBrand();
 			drinksStoreItem.setContent(drinksBrand1);
 			int qty1=12;
@@ -82,9 +82,9 @@ public class DrinksStoreItemTest extends TestCase{
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
 		DrinksStore drinksStore=(DrinksStore)storeController.getStore(Store.DRINK);
-		int storeSize=drinksStore.getStoreSize();
+		int storeSize=drinksStore.getSize();
 		for(int i=0;i<storeSize;i++){
-			DrinksStoreItem drinksStoreItem=(DrinksStoreItem)drinksStore.getStoreItem(i);
+			DrinksStoreItem drinksStoreItem=(DrinksStoreItem)drinksStore.getItem(i);
 			DrinksBrand drinksBrand1=(DrinksBrand)drinksStoreItem.getContent();
 			//Act store
 			drinksStoreItem.store();
@@ -102,9 +102,9 @@ public class DrinksStoreItemTest extends TestCase{
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
 		DrinksStore drinksStore=(DrinksStore)storeController.getStore(Store.DRINK);
-		int storeSize=drinksStore.getStoreSize();
+		int storeSize=drinksStore.getSize();
 		for(int i=0;i<storeSize;i++){
-			DrinksStoreItem drinksStoreItem=(DrinksStoreItem)drinksStore.getStoreItem(i);
+			DrinksStoreItem drinksStoreItem=(DrinksStoreItem)drinksStore.getItem(i);
 			int qty1=drinksStoreItem.getQuantity();
 			//Act decrement
 			drinksStoreItem.decrement();
@@ -125,9 +125,9 @@ public class DrinksStoreItemTest extends TestCase{
 		StoreController storeController=mainCtrl.getStoreController();
 		storeController.initialize();
 		DrinksStore drinksStore=(DrinksStore)storeController.getStore(Store.DRINK);
-		int storeSize=drinksStore.getStoreSize();
+		int storeSize=drinksStore.getSize();
 		for(int i=0;i<storeSize;i++){
-			DrinksStoreItem drinksStoreItem=(DrinksStoreItem)drinksStore.getStoreItem(i);
+			DrinksStoreItem drinksStoreItem=(DrinksStoreItem)drinksStore.getItem(i);
 			int qty1=drinksStoreItem.getQuantity();
 			//Act increment
 			drinksStoreItem.increment();

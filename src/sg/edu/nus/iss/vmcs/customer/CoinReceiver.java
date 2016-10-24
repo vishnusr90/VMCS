@@ -1,8 +1,10 @@
 package sg.edu.nus.iss.vmcs.customer;
 
 import sg.edu.nus.iss.vmcs.store.CoinStore;
+import sg.edu.nus.iss.vmcs.store.Money;
 import sg.edu.nus.iss.vmcs.store.CoinAttribute;
 import sg.edu.nus.iss.vmcs.store.MoneyAttribute;
+import sg.edu.nus.iss.vmcs.store.StoreIterator;
 
 
 public class CoinReceiver extends MoneyReceiver{

@@ -1,26 +1,24 @@
 package sg.edu.nus.iss.vmcs.store;
 
-import sg.edu.nus.iss.vmcs.store.Store;
-import sg.edu.nus.iss.vmcs.store.StoreItem;
-
 public abstract class MoneyStore extends Store {
 
     public Money findMoney(MoneyAttribute attribute){
-            for(StoreItem item: getItems()){
-                    Money money = (Money) item.getContent();
-                    if(money.getAttributes().equals(attribute)) return money;
-            }	
-            return null;
+        StoreIterator strItr = getIterator();
+        strItr.first();
+        while(strItr.hasNext()){
+            Money money = (Money) strItr.currentItem().getContent();
+            if(money.getAttributes().equals(attribute)) return money;
+            strItr.next();
+        }
+        return null;
     }
 
     public int findMoneyStoreIndex(MoneyAttribute attribute){
-
-
-            for(int i=0; i< getStoreSize() ; i++){
-                    Money money = (Money) getStoreItem(i).getContent();
-                    if(money.getAttributes().equals(attribute)) return i;
-            }	
-            return -1;
+        for(int i=0; i< getSize() ; i++){
+                Money money = (Money) getItem(i).getContent();
+                if(money.getAttributes().equals(attribute)) return i;
+        }	
+        return -1;
     }
 
 
@@ -32,15 +30,14 @@ public abstract class MoneyStore extends Store {
     public int transferAll()  {
             int i;
             int cc = 0; // coin quauntity;
-            int size = this.getStoreSize();
-
-            CoinStoreItem item;
-            for (i = 0; i < size; i++) {
-                    item = (CoinStoreItem) this.getStoreItem(i);
-                    cc = cc + item.getQuantity();
-                    item.setQuantity(0);
+            int size = this.getSize();
+            StoreIterator strItr = getIterator();
+            strItr.first();
+            while(strItr.hasNext()){
+                cc += strItr.currentItem().getQuantity();
+                strItr.currentItem().setQuantity(0);
+                strItr.next();
             }
-
             return cc;
     }
 

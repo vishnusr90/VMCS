@@ -12,19 +12,13 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Panel;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import sg.edu.nus.iss.vmcs.store.MoneyStore;
-import sg.edu.nus.iss.vmcs.store.CoinStoreItem;
 import sg.edu.nus.iss.vmcs.store.Coin;
-import sg.edu.nus.iss.vmcs.store.CoinAttribute;
-import sg.edu.nus.iss.vmcs.store.CoinStore;
 import sg.edu.nus.iss.vmcs.store.Money;
 import sg.edu.nus.iss.vmcs.store.Note;
-import sg.edu.nus.iss.vmcs.store.NoteAttribute;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
-import sg.edu.nus.iss.vmcs.store.StoreObject;
+import sg.edu.nus.iss.vmcs.store.StoreIterator;
 
 /**
  * This interface object is part of the Customer Panel&#46; It is used to enter
@@ -38,26 +32,29 @@ public class MoneyInputBox extends Panel{
 
     
     public MoneyInputBox(List<MoneyReceiver> moneyReceivers){
-        int j =0;
+        int j = 0;
         btnMoneyButtons = new ArrayList<>();
         for(MoneyReceiver moneyReceiver : moneyReceivers){
-            if(moneyReceiver == null) continue;
-            j++;
-            int cashStoreSize= moneyReceiver.getStore().getStoreSize();
-            StoreItem[] cashStoreItems= moneyReceiver.getStore().getItems();
-            
+            if(moneyReceiver == null) continue;         
             MoneyInputListener coinInputListener = new MoneyInputListener(moneyReceiver);
 
             setLayout(new GridBagLayout());
-            for(int i=0;i<cashStoreItems.length;i++){
-                    Money money = (Money) cashStoreItems[i].getContent();
-                    MoneyButton btn = new MoneyButton(money);
-                    btn.addActionListener(coinInputListener);
-                    add(btn,new GridBagConstraints(i,j,1,1,1.0,0.0,
-                                GridBagConstraints.EAST,GridBagConstraints.HORIZONTAL,
-                                new Insets(0,0,0,0),10,8));
-                    btnMoneyButtons.add(btn);
+            
+            int i=0;
+            StoreIterator strItr = moneyReceiver.getStore().getIterator();
+            strItr.first();
+            while(strItr.hasNext()){
+                Money money = (Money)(strItr.currentItem().getContent());
+                MoneyButton btn = new MoneyButton(money);
+                btn.addActionListener(coinInputListener);
+                add(btn,new GridBagConstraints(i,j,1,1,1.0,0.0,
+                            GridBagConstraints.EAST,GridBagConstraints.HORIZONTAL,
+                            new Insets(0,0,0,0),10,8));
+                btnMoneyButtons.add(btn);
+                strItr.next();
+                i++;
             }
+           
             MoneyButton invalidBtn;
             if(moneyReceiver instanceof CoinReceiver){
                 invalidBtn = new MoneyButton(Coin.createInvalid());
@@ -66,9 +63,10 @@ public class MoneyInputBox extends Panel{
             }
             invalidBtn.addActionListener(coinInputListener);
             btnMoneyButtons.add(invalidBtn);
-            add(invalidBtn,new GridBagConstraints(cashStoreSize,j,1,1,1.0,0.0,
+            add(invalidBtn,new GridBagConstraints(i,j,1,1,1.0,0.0,
                         GridBagConstraints.EAST,GridBagConstraints.HORIZONTAL,
                         new Insets(0,0,0,0),10,8));
+            j++;
         }
 
     }
