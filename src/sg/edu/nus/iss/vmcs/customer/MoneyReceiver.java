@@ -1,4 +1,4 @@
-package sg.edu.nus.iss.vmcs.refactoring;
+package sg.edu.nus.iss.vmcs.customer;
 
 import sg.edu.nus.iss.vmcs.store.MoneyAttribute;
 import sg.edu.nus.iss.vmcs.store.MoneyStore;

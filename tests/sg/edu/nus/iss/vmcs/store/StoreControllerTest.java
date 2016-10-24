@@ -140,7 +140,7 @@ public class StoreControllerTest extends TestCase{
 			CoinStoreItem cashStoreItem=(CoinStoreItem)cashStore.getStoreItem(i);
 			Coin coin1=(Coin)cashStoreItem.getContent();
 			//Act storeCoin
-			storeController.storeCoin(coin1);
+			storeController.storeMoney(coin1);
 			Coin coin2=(Coin) cashStore.findMoney(coin1.getAttributes());
 			//Assert
 			assertNotNull(coin2);
