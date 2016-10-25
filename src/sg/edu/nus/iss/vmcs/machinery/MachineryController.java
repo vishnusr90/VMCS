@@ -160,12 +160,12 @@ public class MachineryController {
 	/**
 	 * This method will instruct the CashStore to store the Coin sent as input, and
 	 * update the display on the MachinerySimulatorPanel.
+         * @param money
 	 * @throws VMCSException if fail to update cash store display.
 	 */
-	public void storeCoin(Coin c) throws VMCSException {
-		storeCtrl.storeCoin(c);
-		if (ml != null)
-			ml.getCashStoreDisplay().update();
+	public void storeMoney(Money money) throws VMCSException {
+            storeCtrl.storeMoney(money);
+            if (ml != null) ml.getCashStoreDisplay().update();
 	}
 
 	/**

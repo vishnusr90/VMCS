@@ -42,7 +42,7 @@ public class StoreViewer extends Panel {
 		
 		String title = null;
 		switch (type) {
-		case Store.CASH:
+		case Store.COIN:
 			title = CASH_VIEW_TITLE;
 			break;
 		case Store.DRINK:
@@ -56,18 +56,20 @@ public class StoreViewer extends Panel {
 		int sSize = storeCtrl.getStoreSize(type);
 		viewItems = new LabelledDisplay[sSize];
 
-		StoreItem[] storeItem = storeCtrl.getStoreItems(type);
+		StoreIterator strItr = storeCtrl.getStore(type).getIterator();
+                strItr.first();
 		this.setLayout(new GridLayout(0, 1));
 		this.add(pl);
 
-		for (int i = 0; i < sSize; i++) {
-			String name = storeItem[i].getContent().getName();
+		for (int i = 0; strItr.hasNext(); i++) {
+			String name = strItr.currentItem().getContent().getName();
 			viewItems[i] = new LabelledDisplay(name,
 						LabelledDisplay.DEFAULT,
 						LabelledDisplay.GRID);
 			viewItems[i].addListener(
                         new StoreViewerListener(type, i, storeCtrl));
 			this.add(viewItems[i]);
+			strItr.next();
 		}
 		
 		update();
@@ -77,11 +79,13 @@ public class StoreViewer extends Panel {
 	 * Update the display fields with the data provided.
 	 */
 	public void update () {
-		StoreItem[] storeItem = storeCtrl.getStoreItems(type);
-		for (int i = 0; i < storeItem.length; i++) {
-			int val = storeItem[i].getQuantity();
+		StoreIterator strItr = storeCtrl.getStore(type).getIterator();
+                strItr.first();
+		for (int i = 0; strItr.hasNext(); i++) {
+			int val = strItr.currentItem().getQuantity();
 			String sval = String.valueOf(val);
 			viewItems[i].setValue(sval);
+			strItr.next();
 		}
 	}
 

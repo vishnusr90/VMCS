@@ -16,8 +16,16 @@ package sg.edu.nus.iss.vmcs.customer;
  */
 
 import java.awt.Frame;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import sg.edu.nus.iss.vmcs.refactoring.observables.MoneyReceiverObserver;
+import sg.edu.nus.iss.vmcs.refactoring.observables.MoneyReceiverState;
+import sg.edu.nus.iss.vmcs.store.CoinStore;
 
 import sg.edu.nus.iss.vmcs.store.DrinksBrand;
+import sg.edu.nus.iss.vmcs.store.Money;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
 import sg.edu.nus.iss.vmcs.system.MainController;
@@ -29,12 +37,12 @@ import sg.edu.nus.iss.vmcs.system.SimulatorControlPanel;
  * @author Team SE16T5E
  * @version 1.0 2008-10-01
  */
-public class TransactionController {
+public class TransactionController implements MoneyReceiverObserver {
 	private MainController mainCtrl;
 	private CustomerPanel custPanel;
 	private DispenseController dispenseCtrl;
 	private ChangeGiver changeGiver;
-	private CoinReceiver coinReceiver;
+	private List<MoneyReceiver> moneyReceivers;
 
 	/**Set to TRUE when change is successfully issued during the transaction.*/
 	private boolean changeGiven=false;
@@ -45,15 +53,35 @@ public class TransactionController {
 	/**Identifier of the selected drink.*/
 	private int selection=-1;
 	
+        
+        public void  MoneyReceiverStateChanged(MoneyReceiver source, MoneyReceiverState newState){
+            if(newState == MoneyReceiverState.InvalidMoney){
+                this.terminateFault();
+            }
+	}
+	public void  MoneyRecevied(MoneyReceiver source, Money money){
+        
+		
+	}
+	public void  TotalMoneyReceviedChanged(MoneyReceiver source, int newtotal){
+		this.processMoneyReceived(newtotal);
+	}
+        
 	/**
 	 * This constructor creates an instance of the TransactionController.
 	 * @param mainCtrl the MainController.
 	 */
 	public TransactionController(MainController mainCtrl) {
-		this.mainCtrl = mainCtrl;
-		dispenseCtrl=new DispenseController(this);
-		coinReceiver=new CoinReceiver(this);
-		changeGiver=new ChangeGiver(this);
+            this.mainCtrl = mainCtrl;
+            dispenseCtrl=new DispenseController(this);
+            moneyReceivers = new ArrayList<>();
+            moneyReceivers.add(new CoinReceiver(this.mainCtrl.getStoreController().getCoinStore()));
+            moneyReceivers.add(new NoteReceiver(this.mainCtrl.getStoreController().getNoteStore()));
+            changeGiver = new ChangeGiver(this);
+
+            moneyReceivers.forEach((x)->{
+                x.subscribe(this);
+            });
 	}
 
 	/**
@@ -70,11 +98,15 @@ public class TransactionController {
 	public void displayCustomerPanel() {
 		SimulatorControlPanel scp = mainCtrl.getSimulatorControlPanel();
 	    custPanel = new CustomerPanel((Frame) scp, this);
-		custPanel.display();
-		dispenseCtrl.updateDrinkPanel();
-		dispenseCtrl.allowSelection(true);
-		changeGiver.displayChangeStatus();
-		coinReceiver.setActive(false);
+            
+            moneyReceivers.forEach((x)->{
+                x.subscribe(custPanel);
+                x.setActive(false);
+            });
+            custPanel.display();
+            dispenseCtrl.updateDrinkPanel();
+            dispenseCtrl.allowSelection(true);
+            changeGiver.displayChangeStatus();
 	}
 	
 	/**
@@ -103,7 +135,9 @@ public class TransactionController {
 		dispenseCtrl.ResetCan();
 		changeGiver.displayChangeStatus();
 		dispenseCtrl.allowSelection(false);
-		coinReceiver.startReceiver();
+		moneyReceivers.forEach((x)->{
+                    x.startReceiver();
+                });
 		custPanel.setTerminateButtonActive(true);
 	}
 	
@@ -124,7 +158,9 @@ public class TransactionController {
 		if(total>=price)
 			completeTransaction();
 		else{
-			coinReceiver.continueReceive();
+                    moneyReceivers.forEach((x)->{
+                        x.continueReceive();
+                    });
 		}
 	}
 	
@@ -144,7 +180,8 @@ public class TransactionController {
 	public void completeTransaction(){
 		System.out.println("CompleteTransaction: Begin");
 		dispenseCtrl.dispenseDrink(selection);
-		int totalMoneyInserted=coinReceiver.getTotalInserted();
+		int totalMoneyInserted = moneyReceivers.stream().mapToInt(x -> x.getTotalInserted()).sum();
+                
 		int change=totalMoneyInserted-price;
 		if(change>0){
 			changeGiver.giveChange(change);
@@ -152,7 +189,10 @@ public class TransactionController {
 		else{
 			getCustomerPanel().setChange(0);
 		}
-		coinReceiver.storeCash();
+                
+		moneyReceivers.forEach((x)->{
+                    x.storeCash();
+                });
 		dispenseCtrl.allowSelection(true);
 		
 		refreshMachineryDisplay();
@@ -168,7 +208,9 @@ public class TransactionController {
 	public void terminateFault(){
 		System.out.println("TerminateFault: Begin");
 		dispenseCtrl.allowSelection(false);
-		coinReceiver.refundCash();
+		moneyReceivers.forEach((x)->{
+                    x.refundCash();
+                });
 		refreshMachineryDisplay();
 		System.out.println("TerminateFault: End");
 	}
@@ -188,8 +230,10 @@ public class TransactionController {
 	public void terminateTransaction(){
 		System.out.println("TerminateTransaction: Begin");
 		dispenseCtrl.allowSelection(false);
-		coinReceiver.stopReceive();
-		coinReceiver.refundCash();
+		moneyReceivers.forEach((x)->{
+                    x.stopReceive();
+                    x.refundCash();
+                });
 		if(custPanel!=null){
 			custPanel.setTerminateButtonActive(false);
 		}
@@ -202,8 +246,10 @@ public class TransactionController {
 	 */
 	public void cancelTransaction(){
 		System.out.println("CancelTransaction: Begin");
-		coinReceiver.stopReceive();
-		coinReceiver.refundCash();
+		moneyReceivers.forEach((x)->{
+                    x.stopReceive();
+                    x.refundCash();
+                });
 		dispenseCtrl.allowSelection(true);
 		refreshMachineryDisplay();
 		System.out.println("CancelTransaction: End");
@@ -320,14 +366,10 @@ public class TransactionController {
 	public ChangeGiver getChangeGiver(){
 		return changeGiver;
 	}
-	
-	/**
-	 * This method returns the CoinReceiver.
-	 * @return the CoinReceiver.
-	 */
-	public CoinReceiver getCoinReceiver(){
-		return coinReceiver;
-	}
+        
+        public List<MoneyReceiver> getMoneyReceivers(){
+            return this.moneyReceivers;
+        }
 	
 	/**
 	 * This method refreshes the MachinerySimulatorPanel.

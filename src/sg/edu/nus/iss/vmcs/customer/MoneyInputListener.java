@@ -9,6 +9,7 @@ package sg.edu.nus.iss.vmcs.customer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import sg.edu.nus.iss.vmcs.store.CoinAttribute;
 
 /**
  * This control object implements the coin denomination selection
@@ -18,22 +19,22 @@ import java.awt.event.ActionListener;
  * @author Team SE16T5E
  * @version 1.0 2008-10-01
  */
-public class CoinInputListener implements ActionListener{
-	CoinReceiver coinReceiver;
+public class MoneyInputListener implements ActionListener{
+	MoneyReceiver moneyReceiver;
 	
 	/**
-	 * This constructor creates an instance of the Coin Input Listener
-	 * @param coinReceiver the Coin Receiver
+	 * This constructor creates an instance of the Money Input Listener
+	 * @param moneyReceiver the Money Receiver
 	 */
-	public CoinInputListener(CoinReceiver coinReceiver){
-		this.coinReceiver=coinReceiver;
+	public MoneyInputListener(MoneyReceiver moneyReceiver){
+		this.moneyReceiver=moneyReceiver;
 	}
 	
 	/**
 	 * This method performs actions in response to the coin input button being pressed.
 	 */
 	public void actionPerformed(ActionEvent ev){
-		CoinButton coinButton=(CoinButton)ev.getSource();
-		coinReceiver.receiveCoin(coinButton.getWeight());
+		MoneyButton moneyButton=(MoneyButton)ev.getSource();
+		moneyReceiver.receiveMoney(moneyButton.getMoney().getAttributes());
 	}
 }//End of class CoinInputListener

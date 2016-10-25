@@ -30,5 +30,7 @@ public class DrinksStore extends Store {
 	 * This constructor creates an instance of DrinksStore object.
 	 */
 	public DrinksStore() {
+		super();
 	}
+
 }//End of class DrinksStore
