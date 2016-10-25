@@ -9,6 +9,7 @@ package sg.edu.nus.iss.vmcs.customer;
 
 import sg.edu.nus.iss.vmcs.store.CoinStoreItem;
 import sg.edu.nus.iss.vmcs.store.Coin;
+import sg.edu.nus.iss.vmcs.store.Iterator;
 import sg.edu.nus.iss.vmcs.store.Money;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreController;
@@ -90,7 +91,7 @@ public class ChangeGiver {
         if(custPanel==null) return;
         custPanel.displayChangeStatus(false);
         this.txCtrl.getMoneyReceivers().forEach((MoneyReceiver x)->{
-            StoreIterator strItr = x.getStore().getIterator();
+            Iterator strItr = x.getStore().getIterator();
             strItr.first();
             while(strItr.hasNext()){
                 int quantity = strItr.currentItem().getQuantity();

@@ -33,6 +33,7 @@ public class MoneyInputListener implements ActionListener{
 	/**
 	 * This method performs actions in response to the coin input button being pressed.
 	 */
+        @Override
 	public void actionPerformed(ActionEvent ev){
 		MoneyButton moneyButton=(MoneyButton)ev.getSource();
 		moneyReceiver.receiveMoney(moneyButton.getMoney().getAttributes());

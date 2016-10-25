@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.edu.nus.iss.vmcs.store.Coin;
+import sg.edu.nus.iss.vmcs.store.Iterator;
 import sg.edu.nus.iss.vmcs.store.Money;
 import sg.edu.nus.iss.vmcs.store.Note;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
@@ -41,7 +42,7 @@ public class MoneyInputBox extends Panel{
             setLayout(new GridBagLayout());
             
             int i=0;
-            StoreIterator strItr = moneyReceiver.getStore().getIterator();
+            Iterator strItr = moneyReceiver.getStore().getIterator();
             strItr.first();
             while(strItr.hasNext()){
                 Money money = (Money)(strItr.currentItem().getContent());
