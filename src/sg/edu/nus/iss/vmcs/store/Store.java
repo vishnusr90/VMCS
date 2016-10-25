@@ -136,7 +136,7 @@ public abstract class Store {
 		return size;
 	}
 	
-	public StoreIterator getIterator() {
+	public Iterator getIterator() {
             if(storeIterator == null) storeIterator = new StoreIterator(this);
             return storeIterator;
 	}

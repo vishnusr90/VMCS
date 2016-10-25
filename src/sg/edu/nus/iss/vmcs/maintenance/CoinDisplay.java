@@ -39,7 +39,7 @@ public class CoinDisplay extends Panel {
 		storeCtrl = mCtrl.getMainController().getStoreController();
 
 		len = storeCtrl.getStoreSize(Store.COIN);
-		StoreIterator strItr = storeCtrl.getStore(Store.COIN).getIterator();
+		Iterator strItr = storeCtrl.getStore(Store.COIN).getIterator();
                 strItr.first();
 		StoreItem[] items = new StoreItem[storeCtrl.getStoreSize(Store.COIN)];
 		System.out.println(storeCtrl.getStoreSize(Store.COIN));
