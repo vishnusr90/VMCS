@@ -292,11 +292,12 @@ public class StoreControllerTest extends TestCase{
                 
                 countTotalCash = storeController.getMoneyStores().stream().mapToInt(( MoneyStore x) -> {
                     int subSum = 0;
-                    x.getIterator().first();
-                    while(x.getIterator().hasNext()){
-                        Money m = (Money) (x.getIterator().currentItem().getContent());
-                        subSum += x.getIterator().currentItem().getQuantity() * m.getValue();
-                        x.getIterator().next();
+                    Iterator<StoreItem> strItr = x.getIterator();
+                    
+                    while(strItr.hasNext()){
+                        Money m = (Money) (strItr.currentItem().getContent());
+                        subSum += strItr.currentItem().getQuantity() * m.getValue();
+                        strItr.next();
                     }
                     return subSum;
                 }).sum();
@@ -316,10 +317,11 @@ public class StoreControllerTest extends TestCase{
 		
 		int totalQ = storeController.getMoneyStores().stream().mapToInt((x)->{
                     int q = 0;
-                    x.getIterator().first();
-                    while(x.getIterator().hasNext()){
-                        q += x.getIterator().currentItem().getQuantity();
-                        x.getIterator().next();
+                    Iterator<StoreItem> strItr = x.getIterator();
+                    
+                    while(strItr.hasNext()){
+                        q += strItr.currentItem().getQuantity();
+                        strItr.next();
                     }
                     return q;
                 }).sum();

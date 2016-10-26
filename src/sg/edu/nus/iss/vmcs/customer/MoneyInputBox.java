@@ -19,7 +19,6 @@ import sg.edu.nus.iss.vmcs.store.Iterator;
 import sg.edu.nus.iss.vmcs.store.Money;
 import sg.edu.nus.iss.vmcs.store.Note;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
-import sg.edu.nus.iss.vmcs.store.StoreIterator;
 
 /**
  * This interface object is part of the Customer Panel&#46; It is used to enter
@@ -42,8 +41,8 @@ public class MoneyInputBox extends Panel{
             setLayout(new GridBagLayout());
             
             int i=0;
-            Iterator strItr = moneyReceiver.getStore().getIterator();
-            strItr.first();
+            Iterator<StoreItem> strItr = moneyReceiver.getStore().getIterator();
+            
             while(strItr.hasNext()){
                 Money money = (Money)(strItr.currentItem().getContent());
                 MoneyButton btn = new MoneyButton(money);

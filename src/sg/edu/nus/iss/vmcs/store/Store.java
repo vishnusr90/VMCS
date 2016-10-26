@@ -136,8 +136,9 @@ public abstract class Store {
 		return size;
 	}
 	
-	public Iterator getIterator() {
+	public Iterator<StoreItem> getIterator() {
             if(storeIterator == null) storeIterator = new StoreIterator(this);
+            storeIterator.first();
             return storeIterator;
 	}
 	

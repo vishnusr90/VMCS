@@ -8,10 +8,11 @@ package sg.edu.nus.iss.vmcs.store;
 /**
  *
  * @author Zaid
+ * @param <T>
  */
-public interface Iterator {
+public interface Iterator<T> {
 
-    StoreItem currentItem();
+    T currentItem();
 
     void first();
 

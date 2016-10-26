@@ -91,8 +91,8 @@ public class ChangeGiver {
         if(custPanel==null) return;
         custPanel.displayChangeStatus(false);
         this.txCtrl.getMoneyReceivers().forEach((MoneyReceiver x)->{
-            Iterator strItr = x.getStore().getIterator();
-            strItr.first();
+            Iterator<StoreItem> strItr = x.getStore().getIterator();
+            
             while(strItr.hasNext()){
                 int quantity = strItr.currentItem().getQuantity();
                 if(quantity == 0) {

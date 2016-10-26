@@ -1,6 +1,6 @@
 package sg.edu.nus.iss.vmcs.store;
 
-public class StoreIterator implements Iterator {
+public class StoreIterator implements Iterator<StoreItem> {
 	
 	private int cursor;
 	private final Store str;

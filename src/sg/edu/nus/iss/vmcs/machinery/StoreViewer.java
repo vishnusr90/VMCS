@@ -56,8 +56,8 @@ public class StoreViewer extends Panel {
 		int sSize = storeCtrl.getStoreSize(type);
 		viewItems = new LabelledDisplay[sSize];
 
-		Iterator strItr = storeCtrl.getStore(type).getIterator();
-                strItr.first();
+		Iterator<StoreItem> strItr = storeCtrl.getStore(type).getIterator();
+                
 		this.setLayout(new GridLayout(0, 1));
 		this.add(pl);
 
@@ -79,8 +79,8 @@ public class StoreViewer extends Panel {
 	 * Update the display fields with the data provided.
 	 */
 	public void update () {
-		Iterator strItr = storeCtrl.getStore(type).getIterator();
-                strItr.first();
+		Iterator<StoreItem> strItr = storeCtrl.getStore(type).getIterator();
+                
 		for (int i = 0; strItr.hasNext(); i++) {
 			int val = strItr.currentItem().getQuantity();
 			String sval = String.valueOf(val);
