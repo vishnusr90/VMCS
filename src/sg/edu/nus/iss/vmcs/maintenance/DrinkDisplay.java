@@ -43,7 +43,7 @@ public class DrinkDisplay extends Panel {
 		len = storeCtrl.getStoreSize(Store.DRINK);
 		StoreItem[] items = new StoreItem[len];
 		Iterator<StoreItem> strItr = storeCtrl.getStore(Store.DRINK).getIterator();
-		strItr.first();
+		
 		for(int i = 0; strItr.hasNext();i++){
 			items[i] = strItr.currentItem();
 			strItr.next();

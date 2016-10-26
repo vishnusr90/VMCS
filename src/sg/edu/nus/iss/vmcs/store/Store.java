@@ -138,6 +138,7 @@ public abstract class Store {
 	
 	public Iterator<StoreItem> getIterator() {
             if(storeIterator == null) storeIterator = new StoreIterator(this);
+            storeIterator.first();
             return storeIterator;
 	}
 	

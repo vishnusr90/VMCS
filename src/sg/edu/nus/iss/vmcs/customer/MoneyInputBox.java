@@ -42,7 +42,7 @@ public class MoneyInputBox extends Panel{
             
             int i=0;
             Iterator<StoreItem> strItr = moneyReceiver.getStore().getIterator();
-            strItr.first();
+            
             while(strItr.hasNext()){
                 Money money = (Money)(strItr.currentItem().getContent());
                 MoneyButton btn = new MoneyButton(money);

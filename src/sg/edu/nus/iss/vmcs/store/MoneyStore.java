@@ -4,7 +4,7 @@ public abstract class MoneyStore extends Store {
 
     public Money findMoney(MoneyAttribute attribute){
         Iterator<StoreItem> strItr = getIterator();
-        strItr.first();
+        
         while(strItr.hasNext()){
             Money money = (Money) strItr.currentItem().getContent();
             if(money.getAttributes().equals(attribute)) return money;
@@ -32,7 +32,7 @@ public abstract class MoneyStore extends Store {
             int cc = 0; // coin quauntity;
             int size = this.getSize();
             Iterator<StoreItem> strItr = getIterator();
-            strItr.first();
+            
             while(strItr.hasNext()){
                 cc += strItr.currentItem().getQuantity();
                 strItr.currentItem().setQuantity(0);
