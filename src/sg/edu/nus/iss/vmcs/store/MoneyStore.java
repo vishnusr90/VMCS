@@ -3,7 +3,7 @@ package sg.edu.nus.iss.vmcs.store;
 public abstract class MoneyStore extends Store {
 
     public Money findMoney(MoneyAttribute attribute){
-        Iterator strItr = getIterator();
+        Iterator<StoreItem> strItr = getIterator();
         strItr.first();
         while(strItr.hasNext()){
             Money money = (Money) strItr.currentItem().getContent();
@@ -31,7 +31,7 @@ public abstract class MoneyStore extends Store {
             int i;
             int cc = 0; // coin quauntity;
             int size = this.getSize();
-            Iterator strItr = getIterator();
+            Iterator<StoreItem> strItr = getIterator();
             strItr.first();
             while(strItr.hasNext()){
                 cc += strItr.currentItem().getQuantity();
