@@ -91,30 +91,30 @@ public abstract class Store {
 		return items[idx];
 	}
 
-//	/**
-//	 * This method finds a {@link StoreObject} in the store with a specified name&#46;
-//	 * @param name the name of the Store Object&#46;
-//	 * @return the Store Object&#46; Return null if no matching Store Object found&#46;
-//	 */
-//	public StoreObject findObject(String name) {
-//		String en;
-//		StoreObject so;
-//		int i;
-//
-//		for (i = 0; i < size; i++) {
-//			if (items[i] == null)
-//				return null;
-//			so = items[i].getContent();
-//			if (so == null)
-//				return null;
-//			en = so.getName();
-//			if (en != null) {
-//				if (en.compareTo(name) == 0)
-//					return so;
-//			}
-//		}
-//		return null;
-//	}
+	/**
+	 * This method finds a {@link StoreObject} in the store with a specified name&#46;
+	 * @param name the name of the Store Object&#46;
+	 * @return the Store Object&#46; Return null if no matching Store Object found&#46;
+	 */
+	public StoreObject findObject(String name) {
+		String en;
+		StoreObject so;
+		int i;
+
+		for (i = 0; i < size; i++) {
+			if (items[i] == null)
+				return null;
+			so = items[i].getContent();
+			if (so == null)
+				return null;
+			en = so.getName();
+			if (en != null) {
+				if (en.compareTo(name) == 0)
+					return so;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * This method sets the total number of a store item held.
@@ -136,6 +136,10 @@ public abstract class Store {
 		return size;
 	}
 	
-	public abstract StoreIterator getIterator(); 
+	public Iterator<StoreItem> getIterator() {
+            if(storeIterator == null) storeIterator = new StoreIterator(this);
+            storeIterator.first();
+            return storeIterator;
+	}
 	
 }//End of class Store

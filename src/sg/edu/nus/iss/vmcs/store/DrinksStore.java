@@ -33,13 +33,4 @@ public class DrinksStore extends Store {
 		super();
 	}
 
-	@Override
-	public StoreIterator getIterator() {
-
-		if(storeIterator == null){
-			return new DrinkStoreIterator(this);
-		}
-		else
-			return storeIterator;
-	}
 }//End of class DrinksStore

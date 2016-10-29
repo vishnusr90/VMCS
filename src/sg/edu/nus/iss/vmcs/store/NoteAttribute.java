@@ -2,8 +2,14 @@ package sg.edu.nus.iss.vmcs.store;
 
 
 public class NoteAttribute implements MoneyAttribute {
-	private double length;
-	private double width;
+	private final double length;
+	private final double width;
+        
+        public NoteAttribute(double length, double width){
+            this.length = length;
+            this.width = width;
+        }
+        
 	public double getLength(){
 		return width;
 	}
@@ -11,6 +17,7 @@ public class NoteAttribute implements MoneyAttribute {
 		return length;
 	}
 
+        @Override
 	public boolean equals(MoneyAttribute moneyAttribute){
 		if (moneyAttribute == null) return false;
 		if(moneyAttribute instanceof NoteAttribute){

@@ -13,12 +13,12 @@ import java.awt.Insets;
 import java.awt.Panel;
 import java.util.ArrayList;
 
-import sg.edu.nus.iss.vmcs.store.DrinkStoreIterator;
 import sg.edu.nus.iss.vmcs.store.DrinksBrand;
 import sg.edu.nus.iss.vmcs.store.DrinksStoreItem;
 import sg.edu.nus.iss.vmcs.store.Store;
 import sg.edu.nus.iss.vmcs.store.StoreController;
 import sg.edu.nus.iss.vmcs.store.StoreItem;
+import sg.edu.nus.iss.vmcs.store.StoreIterator;
 import sg.edu.nus.iss.vmcs.store.StoreObject;
 import sg.edu.nus.iss.vmcs.system.MainController;
 
@@ -42,7 +42,7 @@ public class DrinkSelectionBox extends Panel{
 		MainController mainCtrl=txCtrl.getMainController();
 		StoreController storeCtrl=mainCtrl.getStoreController();
 		int drinkStoreSize=storeCtrl.getStoreSize(Store.DRINK);
-		DrinkStoreIterator drinkStoreIterator=(DrinkStoreIterator) storeCtrl.getStore(Store.DRINK).getIterator();
+		StoreIterator drinkStoreIterator=(StoreIterator) storeCtrl.getStore(Store.DRINK).getIterator();
 		drinkStoreIterator.first();
 		drinkSelectionItems=new ArrayList<DrinkSelectionItem>();
 		
